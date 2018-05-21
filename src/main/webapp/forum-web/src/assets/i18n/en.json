@@ -1,0 +1,10 @@
+{
+  "navbar": {
+    "forums": "Forums",
+    "chat": "Chat",
+    "search": "Search",
+    "profile": "My Profile",
+    "accountSettings": "Account Settings",
+    "logout": "Logout"
+  }
+}

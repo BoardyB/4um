@@ -1,0 +1,33 @@
+<div class="row">
+  <mat-toolbar>
+    <div class="col-md-1">
+      <button type="button" mat-button>{{ 'navbar.forums' | translate }}</button>
+      <button type="button" mat-button>{{ 'navbar.chat' | translate }}</button>
+    </div>
+
+    <div class="col-md-4 offset-md-3">
+      <mat-form-field appearance="legacy" class="input-full-width">
+        <input matInput placeholder="Search">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3 offset-md-1">
+      <div dropdown class="btn-group float-right">
+        <button dropdownToggle type="button" mat-button class="dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+          {{ 'navbar.profile' | translate }}
+        </button>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <li class="account-dropdown-header">
+            <i class="material-icons center-account-icon">
+              account_box
+            </i>
+            {{ currentUser }}
+          </li>
+          <button class="dropdown-item" type="button">{{ 'navbar.accountSettings' | translate }}</button>
+          <button class="dropdown-item" type="button">{{ 'navbar.logout' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

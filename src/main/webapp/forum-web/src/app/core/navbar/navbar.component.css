@@ -1,0 +1,22 @@
+mat-form-field.mat-form-field {
+  padding-top: 5px;
+  font-size: 14px;
+}
+
+.account-dropdown-header {
+  display: block;
+  padding: 0 0 0 2rem;
+  margin-bottom: 0;
+  font-size: .875rem;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+.center-account-icon {
+  position: relative;
+  top: 6px;
+}
+
+.input-full-width {
+  width: 100%;
+}
