@@ -6,5 +6,16 @@
     "profile": "My Profile",
     "accountSettings": "Account Settings",
     "logout": "Logout"
+  },
+  "discussion": {
+    "title": "Title",
+    "titleRequiredMessage": "Discussion title is required.",
+    "description": "Description",
+    "descriptionRequiredMessage": "Discussion description is required.",
+    "createTitle": "Create New Discussion",
+    "editTitle": "Edit Discussion",
+    "save": "Save",
+    "reset": "Reset",
+    "cancel": "Cancel"
   }
 }

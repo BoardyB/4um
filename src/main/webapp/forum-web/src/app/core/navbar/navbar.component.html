@@ -1,12 +1,12 @@
 <div class="row">
   <mat-toolbar>
     <div class="col-md-1">
-      <button type="button" mat-button>{{ 'navbar.forums' | translate }}</button>
+      <button type="button" (click)="redirectToDiscussion()" mat-button>{{ 'navbar.forums' | translate }}</button>
       <button type="button" mat-button>{{ 'navbar.chat' | translate }}</button>
     </div>
 
     <div class="col-md-4 offset-md-3">
-      <mat-form-field appearance="legacy" class="input-full-width">
+      <mat-form-field appearance="legacy">
         <input matInput placeholder="Search">
       </mat-form-field>
     </div>
@@ -24,6 +24,7 @@
             </i>
             {{ currentUser }}
           </li>
+          <hr/>
           <button class="dropdown-item" type="button">{{ 'navbar.accountSettings' | translate }}</button>
           <button class="dropdown-item" type="button">{{ 'navbar.logout' | translate }}</button>
         </div>

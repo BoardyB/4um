@@ -1,0 +1,77 @@
+<form #discussionForm="ngForm"
+      (ngSubmit)="save(discussionForm)"
+      class="form-horizontal">
+  <mat-card class="discussion-card">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card-header>
+          <mat-card-title class="create-discussion-title">
+            <strong>{{ cardTitle | translate}}</strong>
+          </mat-card-title>
+        </mat-card-header>
+      </div>
+    </div>
+    <mat-card-content>
+      <hr class="title-separator"/>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <div class="form-group indent-form-field">
+            <mat-form-field>
+              <textarea matInput
+                        #discussionTitle="ngModel"
+                        [(ngModel)]="discussion.title"
+                        name="discussionTitle"
+                        [placeholder]="'discussion.title' | translate"
+                        required="true"
+                        matTextareaAutosize="true">
+              </textarea>
+              <mat-error class="mat-select-error-message">
+                {{ 'discussion.titleRequiredMessage' | translate }}
+                <i class="material-icons error-icon">clear</i>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-4">
+          <div class="form-group indent-form-field">
+            <quill-editor #htmlEditor
+                          [style]="{height: '200px'}"
+                          [required]="true"
+                          [placeholder]="'discussion.description' | translate"
+                          matInput
+                          [modules]="{ toolbar: toolbar }"
+                          [(ngModel)]="discussion.description"
+                          name="discussionDescription">
+            </quill-editor>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="col-md-2">
+            <button mat-raised-button
+                    id="discussion-reset-button"
+                    type="button"
+                    (click)="reset()">
+              {{ 'discussion.reset' | translate }}
+            </button>
+          </div>
+          <div class="col-md-2 action-button-column">
+            <button mat-raised-button
+                    type="button"
+                    (click)="hide()">
+              {{ 'discussion.cancel' | translate }}
+            </button>
+          </div>
+          <div class="col-md-2 action-button-column">
+            <button id="discussion-save-button"
+                    type="submit"
+                    mat-raised-button>
+              {{ 'discussion.save' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

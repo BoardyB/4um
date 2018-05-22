@@ -3,9 +3,12 @@ package com.github.boardyb.forum.discussion;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "discussions", schema = "forum")
 public class Discussion {
 
     @Id
@@ -14,6 +17,12 @@ public class Discussion {
     private Integer postCount;
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
+    @NotBlank
+    @Column(name = "title")
+    private String title;
+    @NotBlank
+    @Column(name = "description")
+    private String description;
     @Column(name = "creator")
     private String creator;
     @Column(name = "is_hidden")
@@ -50,6 +59,22 @@ public class Discussion {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCreator() {
@@ -98,6 +123,8 @@ public class Discussion {
         sb.append("id='").append(id).append('\'');
         sb.append(", postCount=").append(postCount);
         sb.append(", creationDate=").append(creationDate);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", description='").append(description).append('\'');
         sb.append(", creator='").append(creator).append('\'');
         sb.append(", isHidden=").append(isHidden);
         sb.append(", isLocked=").append(isLocked);

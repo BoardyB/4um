@@ -3,14 +3,18 @@ package com.github.boardyb.forum.post;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "posts", schema = "forum")
 public class Post {
 
     @Id
     private String id;
+    @Column(name = "description")
+    private String description;
     @Column(name = "upload_date")
     private LocalDateTime uploadDate;
     @Column(name = "vote_up")
@@ -32,6 +36,14 @@ public class Post {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getUploadDate() {
@@ -78,6 +90,7 @@ public class Post {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Post{");
         sb.append("id='").append(id).append('\'');
+        sb.append(", description='").append(description).append('\'');
         sb.append(", uploadDate=").append(uploadDate);
         sb.append(", voteUp=").append(voteUp);
         sb.append(", voteDown=").append(voteDown);

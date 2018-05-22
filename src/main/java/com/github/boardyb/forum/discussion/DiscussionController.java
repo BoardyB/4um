@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/forum/discussion")
@@ -17,6 +18,7 @@ public class DiscussionController {
 
     @PostMapping
     public Response save(@RequestBody @Valid Discussion discussion) {
+        discussion.setId(UUID.randomUUID().toString());
         discussion.setCreationDate(LocalDateTime.now());
         repository.save(discussion);
         return Response.successfulResponseFor(discussion.getId());

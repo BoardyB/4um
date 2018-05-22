@@ -5,13 +5,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {NavbarComponent} from "./navbar/navbar.component";
 import {HttpClientModule} from "@angular/common/http";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TRANSLATE_MODULE_CONFIG} from "./translate.config";
+import {UserService} from "./user/user-service";
+import {DiscussionModule} from "../discussion/discussion.module";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [NavbarComponent],
   imports: [
-    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -20,7 +22,6 @@ import {TRANSLATE_MODULE_CONFIG} from "./translate.config";
     TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG)
   ],
   exports: [
-    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -28,7 +29,13 @@ import {TRANSLATE_MODULE_CONFIG} from "./translate.config";
     NavbarComponent,
     TranslateModule
   ],
-  providers: []
+  providers: [
+    UserService
+  ]
 })
 export class CoreModule {
+  constructor(translate: TranslateService) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
 }
