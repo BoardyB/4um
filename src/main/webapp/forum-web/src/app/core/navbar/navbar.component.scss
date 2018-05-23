@@ -16,3 +16,23 @@ mat-form-field.mat-form-field {
   position: relative;
   top: 6px;
 }
+
+.navbar-toolbar {
+  background: linear-gradient(to right, #f5f5f5, #fafafa)
+}
+
+.navbar-button {
+  left: 8px;
+}
+
+.navbar-button-indent {
+  left: 30px;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+::ng-deep .navbar-search-field .mat-form-field-label-wrapper {
+  text-align: right;
+}

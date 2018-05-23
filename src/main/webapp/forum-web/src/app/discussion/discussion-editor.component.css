@@ -23,3 +23,20 @@
 .action-button-column {
   padding-top: 15px;
 }
+
+.create-discussion-title {
+  font-size: 20px;
+}
+
+.title-separator {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid black;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.discussion-header {
+  width: 100%;
+}

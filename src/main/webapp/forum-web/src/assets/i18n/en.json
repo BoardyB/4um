@@ -8,6 +8,7 @@
     "logout": "Logout"
   },
   "discussion": {
+    "titleName": "Discussion",
     "title": "Title",
     "titleRequiredMessage": "Discussion title is required.",
     "description": "Description",

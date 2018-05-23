@@ -1,19 +1,23 @@
 <div class="row">
-  <mat-toolbar>
+  <mat-toolbar class="navbar-toolbar">
     <div class="col-md-1">
-      <button type="button" (click)="redirectToDiscussion()" mat-button>{{ 'navbar.forums' | translate }}</button>
-      <button type="button" mat-button>{{ 'navbar.chat' | translate }}</button>
+      <button class="navbar-button" type="button" (click)="redirectToDiscussion()" mat-raised-button>
+        {{ 'navbar.forums' | translate }}
+      </button>
+      <button class="navbar-button navbar-button-indent" type="button" mat-raised-button>
+        {{ 'navbar.chat' | translate }}
+      </button>
     </div>
 
-    <div class="col-md-4 offset-md-3">
-      <mat-form-field appearance="legacy">
-        <input matInput placeholder="Search">
+    <div class="col-md-2 offset-md-8">
+      <mat-form-field class="navbar-search-field">
+        <input class="text-align-right" matInput [placeholder]="'navbar.search' | translate">
       </mat-form-field>
     </div>
 
-    <div class="col-md-3 offset-md-1">
+    <div class="col-md-1">
       <div dropdown class="btn-group float-right">
-        <button dropdownToggle type="button" mat-button class="dropdown-toggle" data-toggle="dropdown"
+        <button dropdownToggle type="button" mat-raised-button class="dropdown-toggle navbar-button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
           {{ 'navbar.profile' | translate }}
         </button>
