@@ -16,6 +16,7 @@ export class DiscussionEditorComponent implements OnInit {
   @Output() saved: EventEmitter<Discussion> = new EventEmitter<Discussion>();
   cardTitle: string;
   discussion: Discussion;
+  currentUser: string;
   toolbar = [['bold', 'italic', 'underline', { color: [] }, { header: [1, 2, 3, 4, false] }]];
   private discussionRepository: DiscussionRepository;
   private userService: UserService;
@@ -29,19 +30,20 @@ export class DiscussionEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.reset();
+    this.currentUser = this.userService.getCurrentUserId();
   }
 
   reset(): void {
     if (this.discussionId) {
       this.discussionRepository.findOne(this.discussionId).subscribe(data => {
         this.discussion = data;
-        this.cardTitle = 'discussion.editTitle';
+        this.cardTitle = 'discussion.editor.editTitle';
       });
     } else {
       this.discussion = Discussion.createEmptyDiscussion();
       this.discussion.creator = this.userService.getCurrentUserId();
       this.discussion.creationDate = new Date();
-      this.cardTitle = 'discussion.createTitle';
+      this.cardTitle = 'discussion.editor.createTitle';
       this.discussionForm.resetForm(this.discussion);
     }
   }
@@ -52,7 +54,7 @@ export class DiscussionEditorComponent implements OnInit {
     if (form.valid) {
       this.discussionRepository.save(this.discussion).subscribe(() => {
         this.saved.emit(this.discussion);
-        this.router.navigateByUrl('/discussion');
+        this.router.navigateByUrl('/discussion/all');
       });
     }
   }

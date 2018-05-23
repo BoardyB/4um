@@ -8,15 +8,18 @@
     "logout": "Logout"
   },
   "discussion": {
-    "titleName": "Discussion",
-    "title": "Title",
-    "titleRequiredMessage": "Discussion title is required.",
-    "description": "Description",
-    "descriptionRequiredMessage": "Discussion description is required.",
-    "createTitle": "Create New Discussion",
-    "editTitle": "Edit Discussion",
-    "save": "Save",
-    "reset": "Reset",
-    "cancel": "Cancel"
+    "editor": {
+      "titleName": "Discussion",
+      "title": "Title",
+      "titleRequiredMessage": "Discussion title is required.",
+      "description": "Description",
+      "descriptionRequiredMessage": "Discussion description is required.",
+      "createTitle": "Create New Discussion",
+      "editTitle": "Edit Discussion",
+      "save": "Save",
+      "reset": "Reset",
+      "cancel": "Cancel",
+      "postingAs": "Posting as:"
+    }
   }
 }

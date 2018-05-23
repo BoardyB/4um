@@ -2,6 +2,7 @@ import {isFunction} from 'lodash';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/index";
 import {Entity} from "./entity";
+import {deserializeFromList} from "../util";
 
 export class Repository<T extends Entity<ID>, ID> {
   public static BASE_URL_PREFIX = 'http://localhost:8080/api/';
@@ -22,6 +23,15 @@ export class Repository<T extends Entity<ID>, ID> {
 
   public findOne(id: ID): Observable<T> {
     return this.httpClient.get(this.baseUrl + '/' + id) as Observable<T>;
+  }
+
+  public findAll(): Observable<T[]> {
+    return this.httpClient
+      .post(this.baseUrl + '/all', {}, {headers: Repository.getJsonContentTypeHeader()}) as Observable<T[]>;
+  }
+
+  public deserializeFromList(result: any): T[] {
+    return deserializeFromList(result, this.type);
   }
 
   public save(entity: T): Observable<T> {

@@ -1,12 +1,12 @@
 <form #discussionForm="ngForm"
       (ngSubmit)="save(discussionForm)">
-  <mat-card class="discussion-card entity-editor-card">
-    <mat-card class="discussion-header">
+  <mat-card class="discussion-background-card entity-editor-card">
+    <mat-card class="discussion-card">
       <div class="row">
         <div class="col-md-4">
           <mat-card-header>
             <mat-card-title class="create-discussion-title">
-              <strong>{{ 'discussion.titleName' | translate}}</strong>
+              <strong>{{ 'discussion.editor.titleName' | translate}}</strong>
               <span class="entity-editor-subtitle">{{ cardTitle | translate}}</span>
             </mat-card-title>
           </mat-card-header>
@@ -14,20 +14,31 @@
       </div>
       <mat-card-content>
         <div class="row">
-          <div class="col-md-4 offset-md-4">
+          <div class="col-md-2">
+            <div class="current-user-container">
+              <strong>{{ 'discussion.editor.postingAs' | translate }}</strong>
+            </div>
+            <div class="current-user-box">
+              <i class="material-icons user-account-icon">
+                account_box
+              </i>
+              {{ currentUser }}
+            </div>
+          </div>
+          <div class="col-md-4 offset-md-2">
             <div class="form-group indent-form-field">
               <mat-form-field>
               <textarea matInput
                         #discussionTitle="ngModel"
                         [(ngModel)]="discussion.title"
                         name="discussionTitle"
-                        [placeholder]="'discussion.title' | translate"
+                        [placeholder]="'discussion.editor.title' | translate"
                         required="true"
                         matAutosizeMinRows="2"
                         matTextareaAutosize="true">
               </textarea>
                 <mat-error class="mat-select-error-message">
-                  {{ 'discussion.titleRequiredMessage' | translate }}
+                  {{ 'discussion.editor.titleRequiredMessage' | translate }}
                   <i class="material-icons error-icon">clear</i>
                 </mat-error>
               </mat-form-field>
@@ -40,7 +51,7 @@
               <quill-editor #htmlEditor
                             [style]="{height: '200px'}"
                             [required]="false"
-                            [placeholder]="'discussion.description' | translate"
+                            [placeholder]="'discussion.editor.description' | translate"
                             matInput
                             [modules]="{ toolbar: toolbar }"
                             [(ngModel)]="discussion.description"
@@ -55,7 +66,7 @@
                       class="reset-button"
                       type="button"
                       (click)="reset()">
-                {{ 'discussion.reset' | translate }}
+                {{ 'discussion.editor.reset' | translate }}
               </button>
             </div>
             <div class="col-md-2 action-button-column">
@@ -63,7 +74,7 @@
                       class="cancel-button"
                       type="button"
                       (click)="hide()">
-                {{ 'discussion.cancel' | translate }}
+                {{ 'discussion.editor.cancel' | translate }}
               </button>
             </div>
             <div class="col-md-2 action-button-column">
@@ -71,7 +82,7 @@
                       class="save-button"
                       type="submit"
                       mat-raised-button>
-                {{ 'discussion.save' | translate }}
+                {{ 'discussion.editor.save' | translate }}
               </button>
             </div>
           </div>

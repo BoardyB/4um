@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,6 +46,12 @@ public class DiscussionController {
         } else {
             throw new RuntimeException("Discussion with id [" + id + "] does not exist.");
         }
+    }
+
+    @PostMapping("/all")
+    public Iterable<Discussion> getAll(@RequestBody Object object) {
+        List<Discussion> discussions = repository.findAllByOrderByCreationDateDesc();
+        return discussions;
     }
 
 }

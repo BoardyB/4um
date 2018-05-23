@@ -14,6 +14,7 @@ import {CommonModule} from "@angular/common";
 @NgModule({
   declarations: [NavbarComponent],
   imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -22,6 +23,7 @@ import {CommonModule} from "@angular/common";
     TranslateModule.forRoot(TRANSLATE_MODULE_CONFIG)
   ],
   exports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
