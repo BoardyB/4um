@@ -2,17 +2,19 @@ import {MaterialModule} from "./material/material.module";
 import {NgModule} from "@angular/core";
 import {BootstrapModule} from "./bootstrap/bootstrap.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {BrowserModule} from "@angular/platform-browser";
 import {NavbarComponent} from "./navbar/navbar.component";
 import {HttpClientModule} from "@angular/common/http";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TRANSLATE_MODULE_CONFIG} from "./translate.config";
 import {UserService} from "./user/user-service";
-import {DiscussionModule} from "../discussion/discussion.module";
 import {CommonModule} from "@angular/common";
+import {SafeHtmlPipe} from "./util/safe-html.pipe";
 
 @NgModule({
-  declarations: [NavbarComponent],
+  declarations: [
+    NavbarComponent,
+    SafeHtmlPipe
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,10 +31,12 @@ import {CommonModule} from "@angular/common";
     MaterialModule,
     BootstrapModule,
     NavbarComponent,
-    TranslateModule
+    TranslateModule,
+    SafeHtmlPipe
   ],
   providers: [
-    UserService
+    UserService,
+    SafeHtmlPipe
   ]
 })
 export class CoreModule {

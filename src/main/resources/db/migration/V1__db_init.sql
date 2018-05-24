@@ -7,19 +7,18 @@ CREATE TABLE forum.discussions
   id            VARCHAR(50) PRIMARY KEY NOT NULL,
   post_count    INT,
   creation_date TIMESTAMP,
-  title         TEXT,
-  description   TEXT,
-  is_hidden     BOOLEAN,
-  is_locked     BOOLEAN,
-  is_featured   BOOLEAN,
-  is_deleted    BOOLEAN,
+  title         VARCHAR(1000),
+  description   VARCHAR(20000),
+  locked        BOOLEAN,
+  featured      BOOLEAN,
+  deleted       BOOLEAN,
   creator       VARCHAR(50)
 );
 
 CREATE TABLE forum.posts
 (
   id            VARCHAR(50) PRIMARY KEY NOT NULL,
-  description   TEXT,
+  description   VARCHAR(20000),
   upload_date   TIMESTAMP,
   vote_up       INT,
   vote_down     INT,

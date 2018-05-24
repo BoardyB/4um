@@ -1,5 +1,78 @@
 <div class="discussion-table-container">
-  <ul *ngFor="let discussion of discussions">
-    <li>{{discussion.title}} {{discussion.description}}</li>
-  </ul>
+  <mat-card class="discussion-table-background-card crud-background-card">
+    <mat-card class="discussion-card">
+      <div class="row">
+        <div class="col-md-4 v-center">
+          <mat-card-header>
+            <div class="crud-entity-title">
+              <strong>{{ 'discussion.editor.titleName' | translate}}</strong>
+              <span class="crud-entity-subtitle">{{ 'discussion.table.featuredSubtitle' | translate}}</span>
+            </div>
+          </mat-card-header>
+        </div>
+        <div class="col-md-1 offset-md-6">
+          <button class="create-new-button" type="button" (click)="redirectToNewDiscussion()" mat-raised-button>
+            {{ 'discussion.table.createNew' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngFor="let discussion of featuredDiscussions">
+        <div class="col-md-12 discussion-expansion-container">
+          <mat-expansion-panel class="discussion-expansion">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ discussion.title }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+              <div [innerHTML]="discussion.description | safeHtml">
+              </div>
+            </mat-panel-description>
+            <mat-action-row>
+              <button mat-raised-button (click)="delete(discussion)">
+                {{'discussion.table.delete' | translate }}
+              </button>
+              <button mat-raised-button (click)="showDiscussion(discussion.getId())">
+                {{'discussion.table.show' | translate }}
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="all-discussion-card">
+      <div class="row">
+        <div class="col-md-4 v-center">
+          <mat-card-header>
+            <div class="crud-entity-title">
+              <strong>{{ 'discussion.table.allSubtitle' | translate}}</strong>
+            </div>
+          </mat-card-header>
+        </div>
+      </div>
+      <div class="row" *ngFor="let discussion of discussions">
+        <div class="col-md-12 discussion-expansion-container">
+          <mat-expansion-panel class="discussion-expansion">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ discussion.title }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+              <div [innerHTML]="discussion.description | safeHtml">
+              </div>
+            </mat-panel-description>
+            <mat-action-row>
+              <button mat-raised-button (click)="delete(discussion)">
+                {{'discussion.table.delete' | translate }}
+              </button>
+              <button mat-raised-button (click)="showDiscussion(discussion.getId())">
+                {{'discussion.table.show' | translate }}
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </mat-card>
+  </mat-card>
 </div>

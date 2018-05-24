@@ -1,48 +1,70 @@
 package com.github.boardyb.forum.discussion;
 
-import com.github.boardyb.forum.response.Response;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.boardyb.forum.response.ResponseMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.github.boardyb.forum.response.ResponseMessage.successfulResponseFor;
 
 @RestController
 @RequestMapping("/api/forum/discussion")
 public class DiscussionController {
 
+    private Logger logger = LoggerFactory.getLogger(DiscussionController.class);
+
     @Autowired
     private DiscussionRepository repository;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @PostMapping
-    public Response save(@RequestBody @Valid Discussion discussion) {
+    public ResponseMessage save(@RequestBody @Valid Discussion discussion) {
         discussion.setId(UUID.randomUUID().toString());
         discussion.setCreationDate(LocalDateTime.now());
         repository.save(discussion);
-        return Response.successfulResponseFor(discussion.getId());
+        logger.debug("Discussion [{}] has been saved successfully", discussion);
+        return successfulResponseFor(discussion.getId());
+    }
+
+    @PutMapping
+    public ResponseMessage update(@RequestBody @Valid Discussion discussion) {
+        repository.save(discussion);
+        logger.debug("Discussion [{}] has been updated successfully", discussion);
+        return successfulResponseFor(discussion.getId());
     }
 
     @GetMapping("/{id}")
     public Discussion get(@PathVariable("id") String id) {
-        Optional<Discussion> discussion = repository.findById(id);
-        if (discussion.isPresent()) {
-            return discussion.get();
+        Optional<Discussion> optionalDiscussion = repository.findById(id);
+        if (optionalDiscussion.isPresent()) {
+            Discussion discussion = optionalDiscussion.get();
+            logger.debug("Discussion [{}] has been loaded", discussion);
+            return discussion;
         } else {
             throw new RuntimeException("Discussion with id [" + id + "] does not exist.");
         }
     }
 
     @DeleteMapping("/{id}")
-    public Response delete(@PathVariable("id") String id) {
+    public ResponseMessage delete(@PathVariable("id") String id) {
         Optional<Discussion> optionalDiscussion = repository.findById(id);
         if (optionalDiscussion.isPresent()) {
             Discussion discussion = optionalDiscussion.get();
             discussion.setDeleted(true);
             repository.save(discussion);
-            return Response.successfulResponseFor(discussion.getId());
+            logger.debug("Discussion [{}] has been deleted", discussion);
+            return successfulResponseFor(discussion.getId());
         } else {
             throw new RuntimeException("Discussion with id [" + id + "] does not exist.");
         }
@@ -50,7 +72,9 @@ public class DiscussionController {
 
     @PostMapping("/all")
     public Iterable<Discussion> getAll(@RequestBody Object object) {
-        List<Discussion> discussions = repository.findAllByOrderByCreationDateDesc();
+        Map filterMap = objectMapper.convertValue(object, Map.class);
+        Boolean featured = Boolean.valueOf(filterMap.get("featured").toString());
+        List<Discussion> discussions = repository.findAllByFeaturedAndDeletedFalseOrderByCreationDateDesc(featured);
         return discussions;
     }
 

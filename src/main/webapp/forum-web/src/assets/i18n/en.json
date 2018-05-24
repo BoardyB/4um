@@ -1,6 +1,6 @@
 {
   "navbar": {
-    "forums": "Forums",
+    "discussions": "Discussions",
     "chat": "Chat",
     "search": "Search",
     "profile": "My Profile",
@@ -20,6 +20,13 @@
       "reset": "Reset",
       "cancel": "Cancel",
       "postingAs": "Posting as:"
+    },
+    "table": {
+      "featuredSubtitle": "Featured discussions",
+      "allSubtitle": "All discussions",
+      "createNew": "New discussion",
+      "show": "Show discussion",
+      "delete": "Delete"
     }
   }
 }

@@ -17,7 +17,7 @@ export class DiscussionEditorComponent implements OnInit {
   cardTitle: string;
   discussion: Discussion;
   currentUser: string;
-  toolbar = [['bold', 'italic', 'underline', { color: [] }, { header: [1, 2, 3, 4, false] }]];
+  toolbar = [['bold', 'italic', 'underline', {color: []}, {header: [1, 2, 3, 4, false]}]];
   private discussionRepository: DiscussionRepository;
   private userService: UserService;
   private router: Router;
@@ -57,5 +57,9 @@ export class DiscussionEditorComponent implements OnInit {
         this.router.navigateByUrl('/discussion/all');
       });
     }
+  }
+
+  cancel(): void {
+    this.router.navigateByUrl('/discussion/all');
   }
 }

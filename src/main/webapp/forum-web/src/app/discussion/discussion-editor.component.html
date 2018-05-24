@@ -1,14 +1,14 @@
 <form #discussionForm="ngForm"
       (ngSubmit)="save(discussionForm)">
-  <mat-card class="discussion-background-card entity-editor-card">
+  <mat-card class="discussion-background-card crud-background-card">
     <mat-card class="discussion-card">
       <div class="row">
         <div class="col-md-4">
           <mat-card-header>
-            <mat-card-title class="create-discussion-title">
+            <div class="crud-entity-title">
               <strong>{{ 'discussion.editor.titleName' | translate}}</strong>
-              <span class="entity-editor-subtitle">{{ cardTitle | translate}}</span>
-            </mat-card-title>
+              <span class="crud-entity-subtitle">{{ cardTitle | translate}}</span>
+            </div>
           </mat-card-header>
         </div>
       </div>
@@ -73,7 +73,7 @@
               <button mat-raised-button
                       class="cancel-button"
                       type="button"
-                      (click)="hide()">
+                      (click)="cancel()">
                 {{ 'discussion.editor.cancel' | translate }}
               </button>
             </div>

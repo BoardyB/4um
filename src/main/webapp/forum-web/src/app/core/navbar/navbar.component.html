@@ -2,7 +2,7 @@
   <mat-toolbar class="navbar-toolbar">
     <div class="col-md-1">
       <button class="navbar-button" type="button" (click)="redirectToDiscussion()" mat-raised-button>
-        {{ 'navbar.forums' | translate }}
+        {{ 'navbar.discussions' | translate }}
       </button>
       <button class="navbar-button navbar-button-indent" type="button" mat-raised-button>
         {{ 'navbar.chat' | translate }}
@@ -17,7 +17,8 @@
 
     <div class="col-md-1">
       <div dropdown class="btn-group float-right">
-        <button dropdownToggle type="button" mat-raised-button class="dropdown-toggle navbar-button" data-toggle="dropdown"
+        <button dropdownToggle type="button" mat-raised-button class="dropdown-toggle navbar-button"
+                data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
           {{ 'navbar.profile' | translate }}
         </button>

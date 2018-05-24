@@ -1,26 +1,26 @@
 package com.github.boardyb.forum.response;
 
-public class Response {
+public class ResponseMessage {
 
     private String responseMessage;
     private Integer statusCode;
     private String responseBody;
 
-    public Response() {
+    public ResponseMessage() {
     }
 
-    private Response(String responseMessage, Integer statusCode, String responseBody) {
+    private ResponseMessage(String responseMessage, Integer statusCode, String responseBody) {
         this.responseMessage = responseMessage;
         this.statusCode = statusCode;
         this.responseBody = responseBody;
     }
 
-    public static Response successfulResponseFor(String responseBody) {
-        return new Response("Operation Successful", 200, responseBody);
+    public static ResponseMessage successfulResponseFor(String responseBody) {
+        return new ResponseMessage("Operation Successful", 200, responseBody);
     }
 
-    public static Response errorResponseFor(String responseBody) {
-        return new Response("Operation Failed", 500, responseBody);
+    public static ResponseMessage errorResponseFor(String responseBody) {
+        return new ResponseMessage("Operation Failed", 500, responseBody);
     }
 
     public String getResponseMessage() {
@@ -49,7 +49,7 @@ public class Response {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Response{");
+        final StringBuilder sb = new StringBuilder("ResponseMessage{");
         sb.append("responseMessage='").append(responseMessage).append('\'');
         sb.append(", statusCode=").append(statusCode);
         sb.append(", responseBody='").append(responseBody).append('\'');

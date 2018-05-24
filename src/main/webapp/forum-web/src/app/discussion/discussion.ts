@@ -6,10 +6,9 @@ export class Discussion extends Entity<string> {
   title: string;
   description: string;
   creator: string;
-  isHidden: boolean;
-  isLocked: boolean;
-  isFeatured: boolean;
-  isDeleted: boolean;
+  locked: boolean;
+  featured: boolean;
+  deleted: boolean;
 
   public static deserialize(obj: any): Discussion {
     const discussion = this.createEmptyDiscussion();
@@ -19,27 +18,25 @@ export class Discussion extends Entity<string> {
     discussion.title = obj.title;
     discussion.description = obj.description;
     discussion.creator = obj.creator;
-    discussion.isHidden = obj.isHidden;
-    discussion.isLocked = obj.isLocked;
-    discussion.isFeatured = obj.isFeatured;
-    discussion.isDeleted = obj.isDeleted;
+    discussion.locked = obj.locked;
+    discussion.featured = obj.featured;
+    discussion.deleted = obj.deleted;
     return discussion;
   }
 
   public static createEmptyDiscussion(): Discussion {
-    return new Discussion(null, null, null, null, new Date(), null, false, false, false, false);
+    return new Discussion(null, null, null, null, new Date(), null, false, false, false);
   }
 
 
-  constructor(id: string, postCount: number, title: string, description: string, creationDate: Date, creator: string, isHidden: boolean, isLocked: boolean, isFeatured: boolean, isDeleted: boolean) {
+  constructor(id: string, postCount: number, title: string, description: string, creationDate: Date, creator: string, isLocked: boolean, isFeatured: boolean, isDeleted: boolean) {
     super();
     this.setId(id);
     this.postCount = postCount;
     this.creationDate = creationDate;
     this.creator = creator;
-    this.isHidden = isHidden;
-    this.isLocked = isLocked;
-    this.isFeatured = isFeatured;
-    this.isDeleted = isDeleted;
+    this.locked = isLocked;
+    this.featured = isFeatured;
+    this.deleted = isDeleted;
   }
 }

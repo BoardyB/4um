@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class Discussion {
 
     @Id
+    @Column(name = "id")
     private String id;
     @Column(name = "post_count")
     private Integer postCount;
@@ -24,14 +25,12 @@ public class Discussion {
     private String description;
     @Column(name = "creator")
     private String creator;
-    @Column(name = "is_hidden")
-    private boolean isHidden;
-    @Column(name = "is_locked")
-    private boolean isLocked;
-    @Column(name = "is_featured")
-    private boolean isFeatured;
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
+    @Column(name = "locked")
+    private boolean locked = false;
+    @Column(name = "featured")
+    private boolean featured = false;
+    @Column(name = "deleted")
+    private boolean deleted = false;
 
     protected Discussion() {
     }
@@ -84,36 +83,28 @@ public class Discussion {
         this.creator = creator;
     }
 
-    public boolean isHidden() {
-        return isHidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        isHidden = hidden;
-    }
-
     public boolean isLocked() {
-        return isLocked;
+        return locked;
     }
 
     public void setLocked(boolean locked) {
-        isLocked = locked;
+        this.locked = locked;
     }
 
     public boolean isFeatured() {
-        return isFeatured;
+        return featured;
     }
 
     public void setFeatured(boolean featured) {
-        isFeatured = featured;
+        this.featured = featured;
     }
 
     public boolean isDeleted() {
-        return isDeleted;
+        return deleted;
     }
 
     public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+        this.deleted = deleted;
     }
 
     @Override
@@ -125,10 +116,9 @@ public class Discussion {
         sb.append(", title='").append(title).append('\'');
         sb.append(", description='").append(description).append('\'');
         sb.append(", creator='").append(creator).append('\'');
-        sb.append(", isHidden=").append(isHidden);
-        sb.append(", isLocked=").append(isLocked);
-        sb.append(", isFeatured=").append(isFeatured);
-        sb.append(", isDeleted=").append(isDeleted);
+        sb.append(", locked=").append(locked);
+        sb.append(", featured=").append(featured);
+        sb.append(", deleted=").append(deleted);
         sb.append('}');
         return sb.toString();
     }

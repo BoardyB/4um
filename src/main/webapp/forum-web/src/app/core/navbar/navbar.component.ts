@@ -23,6 +23,6 @@ export class NavbarComponent implements OnInit {
   }
 
   redirectToDiscussion(): void {
-    this.router.navigateByUrl('/discussion');
+    this.router.navigateByUrl('/discussion/all');
   }
 }

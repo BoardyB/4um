@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface DiscussionRepository extends CrudRepository<Discussion, String> {
 
-    List<Discussion> findAllByOrderByCreationDateDesc();
+    List<Discussion> findAllByFeaturedAndDeletedFalseOrderByCreationDateDesc(boolean featured);
 
 }

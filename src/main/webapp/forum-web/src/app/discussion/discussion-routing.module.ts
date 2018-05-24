@@ -5,7 +5,7 @@ import {DiscussionTableComponent} from "./discussion-table.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'new',
     component: DiscussionEditorComponent
   },
   {
@@ -18,4 +18,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DiscussionRoutingModule { }
+export class DiscussionRoutingModule {
+}
