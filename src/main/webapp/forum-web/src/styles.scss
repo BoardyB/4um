@@ -1,24 +1,32 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-$reset-button-color: #e1e094;
-$cancel-button-color: #e1a794;
-$save-button-color: #b7ddec;
+$reset-button-color: #abb7c3;
+$cancel-button-color: #546e7a;
+$save-button-color: #0088cc;
 
 mat-form-field.mat-form-field {
   width: 100%;
 }
 
-.reset-button {
+.info-button {
   background-color: $reset-button-color;
+  color: white;
 }
 
-.cancel-button {
+.warning-button {
   background-color: $cancel-button-color;
+  color: white;
 }
 
-.save-button {
+.primary-button {
   background-color: $save-button-color;
+  color: white;
+}
+
+.delete-button {
+  background-color: $cancel-button-color;
+  color: white;
 }
 
 .crud-background-card {
@@ -55,4 +63,8 @@ mat-form-field.mat-form-field {
 .v-center {
   display: flex;
   align-items: center;
+}
+
+.entity-title-padding {
+  padding-bottom: 10px;
 }

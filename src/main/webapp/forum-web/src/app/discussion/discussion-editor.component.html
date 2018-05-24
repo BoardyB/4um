@@ -2,7 +2,7 @@
       (ngSubmit)="save(discussionForm)">
   <mat-card class="discussion-background-card crud-background-card">
     <mat-card class="discussion-card">
-      <div class="row">
+      <div class="row entity-title-padding">
         <div class="col-md-4">
           <mat-card-header>
             <div class="crud-entity-title">
@@ -63,7 +63,7 @@
             <div class="col-md-2">
               <button mat-raised-button
                       id="discussion-reset-button"
-                      class="reset-button"
+                      class="info-button"
                       type="button"
                       (click)="reset()">
                 {{ 'discussion.editor.reset' | translate }}
@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-2 action-button-column">
               <button mat-raised-button
-                      class="cancel-button"
+                      class="warning-button"
                       type="button"
                       (click)="cancel()">
                 {{ 'discussion.editor.cancel' | translate }}
@@ -79,7 +79,7 @@
             </div>
             <div class="col-md-2 action-button-column">
               <button id="discussion-save-button"
-                      class="save-button"
+                      class="primary-button"
                       type="submit"
                       mat-raised-button>
                 {{ 'discussion.editor.save' | translate }}
