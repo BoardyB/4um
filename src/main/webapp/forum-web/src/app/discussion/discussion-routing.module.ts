@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DiscussionEditorComponent} from "./discussion-editor.component";
 import {DiscussionTableComponent} from "./discussion-table.component";
+import {DiscussionViewerComponent} from "./discussion-viewer.component";
+import {DiscussionResolver} from "./discussion.resolver";
 
 const routes: Routes = [
   {
@@ -11,6 +13,13 @@ const routes: Routes = [
   {
     path: 'all',
     component: DiscussionTableComponent
+  },
+  {
+    path: ':id',
+    component: DiscussionViewerComponent,
+    resolve: {
+      discussion: DiscussionResolver
+    }
   }
 ];
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -62,6 +63,11 @@ public class PostController {
         } else {
             throw new RuntimeException("Post with id [" + id + "] does not exist.");
         }
+    }
+
+    @GetMapping("/discussion/{id}")
+    public List<Post> getPostsOfDiscussion(@PathVariable("id") String id) {
+        return repository.findAllByDiscussionId(id);
     }
 
 }

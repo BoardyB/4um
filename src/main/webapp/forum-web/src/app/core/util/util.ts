@@ -5,3 +5,7 @@ export function deserializeFromList(list: any[], type: any): any[] {
   }
   return parsedObjects;
 }
+
+export function isPresent(obj: any): boolean {
+  return obj !== undefined && obj !== null;
+}

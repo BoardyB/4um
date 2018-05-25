@@ -10,6 +10,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '',
     pathMatch: 'full'
+  },
+  {
+    path: 'post',
+    loadChildren: './post/post.module#PostModule'
   }
 ];
 

@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'forum-discussion-editor',
   templateUrl: './discussion-editor.component.html',
-  styleUrls: ['./discussion-editor.component.css']
+  styleUrls: ['./discussion-editor.component.scss']
 })
 export class DiscussionEditorComponent implements OnInit {
   @Input() discussionId: string;

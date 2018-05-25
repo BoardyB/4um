@@ -6,24 +6,30 @@ import {DiscussionRepository} from "./discussion-repository";
 import {QuillModule} from "ngx-quill";
 import {DiscussionTableComponent} from "./discussion-table.component";
 import {DiscussionListComponent} from "./discussion-list.component";
+import {DiscussionViewerComponent} from "./discussion-viewer.component";
+import {DiscussionResolver} from "./discussion.resolver";
+import {PostModule} from "../post/post.module";
 
 @NgModule({
   declarations: [
     DiscussionEditorComponent,
     DiscussionTableComponent,
-    DiscussionListComponent
+    DiscussionListComponent,
+    DiscussionViewerComponent
   ],
   exports: [
     DiscussionEditorComponent,
     DiscussionTableComponent,
-    DiscussionListComponent
+    DiscussionListComponent,
+    DiscussionViewerComponent
   ],
   imports: [
     CoreModule,
     DiscussionRoutingModule,
-    QuillModule
+    QuillModule,
+    PostModule
   ],
-  providers: [DiscussionRepository]
+  providers: [DiscussionRepository, DiscussionResolver]
 })
 export class DiscussionModule {
 }
