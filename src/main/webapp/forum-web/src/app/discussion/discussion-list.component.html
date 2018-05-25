@@ -1,0 +1,23 @@
+<div class="row" *ngFor="let discussion of discussions">
+  <div class="col-md-12 discussion-expansion-container">
+    <mat-expansion-panel class="discussion-expansion">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ discussion.title }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description>
+        <div [innerHTML]="discussion.description | safeHtml">
+        </div>
+      </mat-panel-description>
+      <mat-action-row>
+        <button class="delete-button delete-button-indent" mat-raised-button (click)="delete(discussion)">
+          {{'discussion.table.delete' | translate }}
+        </button>
+        <button class="info-button" mat-raised-button (click)="showDiscussion(discussion.getId())">
+          {{'discussion.table.show' | translate }}
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </div>
+</div>

@@ -13,7 +13,8 @@ import static com.google.common.collect.Lists.newArrayList;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig
+        extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -21,14 +22,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(newArrayList("http://localhost:4200"));
-        configuration.setAllowedMethods(newArrayList("GET", "POST", "DELETE", "PUT", "OPTIONS"));
+    CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        long age = 3600;
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(newArrayList("http://localhost:4200"));
+        corsConfiguration.setAllowedMethods(newArrayList("GET", "POST", "PUT", "OPTIONS", "DELETE"));
+        corsConfiguration.setAllowedHeaders(newArrayList("*"));
+        corsConfiguration.setMaxAge(age);
+        source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());
         return source;
     }
-
-
 }

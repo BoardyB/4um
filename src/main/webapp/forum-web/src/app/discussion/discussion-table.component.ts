@@ -12,9 +12,9 @@ export class DiscussionTableComponent implements OnInit {
 
   discussions: Discussion[] = [];
   featuredDiscussions: Discussion[] = [];
-  private discussionRepository: DiscussionRepository;
   private router: Router;
   private route: ActivatedRoute;
+  private discussionRepository: DiscussionRepository;
 
   constructor(discussionRepository: DiscussionRepository, router: Router, route: ActivatedRoute) {
     this.discussionRepository = discussionRepository;
@@ -45,17 +45,5 @@ export class DiscussionTableComponent implements OnInit {
 
   redirectToNewDiscussion(): void {
     this.router.navigateByUrl('/discussion/new');
-  }
-
-  showDiscussion(discussionId: string): void {
-    this.router.navigateByUrl('/discussion/' + discussionId);
-  }
-
-  delete(discussion: Discussion): void {
-    this.discussionRepository.delete(discussion).subscribe(result => {
-      if (result.statusCode === 200) {
-        this.reset();
-      }
-    });
   }
 }

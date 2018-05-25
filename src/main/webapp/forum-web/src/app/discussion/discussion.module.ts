@@ -5,15 +5,18 @@ import {DiscussionRoutingModule} from "./discussion-routing.module";
 import {DiscussionRepository} from "./discussion-repository";
 import {QuillModule} from "ngx-quill";
 import {DiscussionTableComponent} from "./discussion-table.component";
+import {DiscussionListComponent} from "./discussion-list.component";
 
 @NgModule({
   declarations: [
     DiscussionEditorComponent,
-    DiscussionTableComponent
+    DiscussionTableComponent,
+    DiscussionListComponent
   ],
   exports: [
     DiscussionEditorComponent,
-    DiscussionTableComponent
+    DiscussionTableComponent,
+    DiscussionListComponent
   ],
   imports: [
     CoreModule,
