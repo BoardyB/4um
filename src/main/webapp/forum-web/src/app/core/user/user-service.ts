@@ -9,8 +9,7 @@ export class UserService {
   }
 
   public getUserById(id: string): User {
-    let randomString = Math.random().toString(36).substring(7);
-    return new User(id, randomString, [], randomString, randomString, new Date(), '');
+    return new User(id, 'Test User', [], 'User', 'Test', new Date(), '');
   }
 
 }

@@ -14,10 +14,11 @@
     </div>
     <div class="row">
       <div class="col-md-3 discussion-creation-date">
-        {{discussion.creationDate | date}}
+        {{discussion.creationDate | date: 'medium'}}
       </div>
-      <div class="col-md-6 discussion-description-offset"
+      <div class="col-md-7 discussion-description-offset"
            [innerHTML]="discussion.description | safeHtml"></div>
     </div>
   </mat-card>
+  <forum-post-list [posts]="posts"></forum-post-list>
 </mat-card>

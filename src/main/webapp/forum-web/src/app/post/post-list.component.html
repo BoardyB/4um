@@ -1,0 +1,22 @@
+<div class="post-container" *ngFor="let post of posts">
+  <mat-card class="post-card">
+    <div class="row entity-title-padding">
+      <div class="col-md-3 user-title">
+        <strong>{{getCreatorOfPost(post).username}}</strong>
+      </div>
+      <div class="col-md-3 score-column">
+        <mat-basic-chip class="score-icon" (click)="voteUp(post)"><i class="material-icons">thumb_up_alt</i></mat-basic-chip>
+        <span class="vote-up-count">{{ post.voteUp }}</span>
+        <mat-basic-chip class="score-icon" (click)="voteDown(post)"><i class="material-icons">thumb_down_alt</i></mat-basic-chip>
+        <span class="vote-down-count">{{ post.voteDown }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 post-creation-date">
+        {{post.uploadDate | date: 'medium'}}
+      </div>
+      <div class="col-md-7 post-description-offset"
+           [innerHTML]="post.description | safeHtml"></div>
+    </div>
+  </mat-card>
+</div>

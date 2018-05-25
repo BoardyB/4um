@@ -45,8 +45,4 @@ export class DiscussionViewerComponent implements OnInit {
       this.posts = this.postRepository.deserializeFromList(response);
     });
   }
-
-  getCreatorOfPost(post: Post): User {
-    return this.userService.getUserById(post.creator);
-  }
 }
