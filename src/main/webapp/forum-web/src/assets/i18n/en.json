@@ -27,6 +27,9 @@
       "createNew": "New discussion",
       "show": "Show discussion",
       "delete": "Delete"
+    },
+    "viewer": {
+
     }
   }
 }

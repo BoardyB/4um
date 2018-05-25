@@ -1,1 +1,23 @@
-<div>{{ posts }}</div>
+<mat-card class="discussion-background-card crud-background-card">
+  <mat-card class="discussion-card">
+    <div class="row entity-title-padding">
+      <div class="col-md-3 user-title">
+        <strong>{{discussionCreator.username}}</strong>
+      </div>
+      <div class="col-md-6 v-center">
+        <mat-card-header>
+          <div class="discussion-title">
+            <strong>{{ discussion.title }}</strong>
+          </div>
+        </mat-card-header>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 discussion-creation-date">
+        {{discussion.creationDate | date}}
+      </div>
+      <div class="col-md-6 discussion-description-offset"
+           [innerHTML]="discussion.description | safeHtml"></div>
+    </div>
+  </mat-card>
+</mat-card>
