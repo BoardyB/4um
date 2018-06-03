@@ -5,7 +5,7 @@ import {Entity} from "./entity";
 import {deserializeFromList} from "../util/util";
 
 export class Repository<T extends Entity<ID>, ID> {
-  public static BASE_URL_PREFIX = 'http://localhost:8080/api/';
+  public static BASE_URL_PREFIX = '/api/';
 
   protected baseUrl: string;
   protected httpClient: HttpClient;
@@ -25,9 +25,9 @@ export class Repository<T extends Entity<ID>, ID> {
     return this.httpClient.get(this.baseUrl + '/' + id) as Observable<T>;
   }
 
-  public findAll(filters: any): Observable<T[]> {
+  public findAll(body: any): Observable<T[]> {
     return this.httpClient
-      .post(this.baseUrl + '/all', filters, {headers: Repository.getJsonContentTypeHeader()}) as Observable<T[]>;
+      .post(this.baseUrl + '/all', body, {headers: Repository.getJsonContentTypeHeader()}) as Observable<T[]>;
   }
 
   public deserializeFromList(result: any): T[] {

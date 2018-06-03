@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Post} from "./post";
 import {User} from "../core/user/user";
 import {UserService} from "../core/user/user-service";
@@ -9,7 +9,7 @@ import {PostRepository} from "./post-repository";
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent {
 
   @Input() posts: Post[];
   private userService: UserService;
@@ -20,19 +20,16 @@ export class PostListComponent implements OnInit {
     this.postRepository = postRepository;
   }
 
-  ngOnInit(): void {
-  }
-
   getCreatorOfPost(post: Post): User {
     return this.userService.getUserById(post.creator);
   }
 
   voteUp(post: Post): void {
-    post.voteUp = +1;
+
   }
 
   voteDown(post: Post): void {
-    post.voteDown = +1;
+
   }
 
 }

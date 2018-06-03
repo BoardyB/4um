@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,7 +29,6 @@ public class DiscussionController {
     @PostMapping
     public ResponseMessage save(@RequestBody @Valid Discussion discussion) {
         discussion.setId(UUID.randomUUID().toString());
-        discussion.setCreationDate(LocalDateTime.now());
         repository.save(discussion);
         logger.debug("Discussion [{}] has been saved successfully", discussion);
         return successfulResponseFor(discussion.getId());
@@ -74,8 +71,7 @@ public class DiscussionController {
     public Iterable<Discussion> getAll(@RequestBody Object object) {
         Map filterMap = objectMapper.convertValue(object, Map.class);
         Boolean featured = Boolean.valueOf(filterMap.get("featured").toString());
-        List<Discussion> discussions = repository.findAllByFeaturedAndDeletedFalseOrderByCreationDateDesc(featured);
-        return discussions;
+        return repository.findAllByFeaturedAndDeletedFalseOrderByCreationDateDesc(featured);
     }
 
 }

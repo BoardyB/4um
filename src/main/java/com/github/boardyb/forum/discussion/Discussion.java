@@ -1,5 +1,7 @@
 package com.github.boardyb.forum.discussion;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ public class Discussion {
     @Column(name = "post_count")
     private Integer postCount;
     @Column(name = "creation_date")
+    @CreatedDate
     private LocalDateTime creationDate;
     @NotBlank
     @Column(name = "title")
