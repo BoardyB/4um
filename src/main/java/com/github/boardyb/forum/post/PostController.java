@@ -1,6 +1,10 @@
 package com.github.boardyb.forum.post;
 
 import com.github.boardyb.forum.response.ResponseMessage;
+import com.github.boardyb.forum.security.AuthenticationService;
+import com.github.boardyb.forum.user.User;
+import com.github.boardyb.forum.vote.Vote;
+import com.github.boardyb.forum.vote.VotingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +14,12 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import static com.github.boardyb.forum.response.ResponseMessage.successfulResponseFor;
+import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping("/api/forum/post")
@@ -21,53 +28,41 @@ public class PostController {
     private Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
-    private PostRepository repository;
+    private PostManager postManager;
 
     @PostMapping
     public ResponseMessage save(@RequestBody @Valid Post post) {
-        post.setId(UUID.randomUUID().toString());
-        post.setUploadDate(LocalDateTime.now());
-        post.setCreator("Test User");
-        repository.save(post);
-        logger.debug("Post [{}] has been saved successfully", post);
-        return ResponseMessage.successfulResponseFor(post.getId());
+        return postManager.save(post);
     }
 
     @PutMapping
     public ResponseMessage update(@RequestBody @Valid Post post) {
-        repository.save(post);
-        logger.debug("Post [{}] has been updated successfully", post);
-        return successfulResponseFor(post.getId());
+        return postManager.update(post);
     }
 
     @GetMapping("/{id}")
     public Post get(@PathVariable("id") String id) {
-        Optional<Post> optionalPost = repository.findById(id);
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
-            logger.debug("Discussion [{}] has been loaded", post);
-            return post;
-        } else {
-            throw new RuntimeException("Post with id [" + id + "] does not exist.");
-        }
+        return postManager.get(id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseMessage delete(@PathVariable("id") String id) {
-        Optional<Post> optionalPost = repository.findById(id);
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
-            repository.delete(post);
-            logger.debug("Post [{}] has been deleted", post);
-            return ResponseMessage.successfulResponseFor(post.getId());
-        } else {
-            throw new RuntimeException("Post with id [" + id + "] does not exist.");
-        }
+        return postManager.delete(id);
     }
 
     @GetMapping("/discussion/{id}")
     public List<Post> getPostsOfDiscussion(@PathVariable("id") String id) {
-        return repository.findAllByDiscussionId(id);
+        return postManager.getPostsOfDiscussion(id);
+    }
+
+    @PostMapping("/upvote")
+    public ResponseMessage upvote(@RequestBody @Valid Post postToUpVote) {
+        return postManager.upvote(postToUpVote);
+    }
+
+    @PostMapping("/downvote")
+    public ResponseMessage downVote(@RequestBody @Valid Post postToDownVote) {
+        return postManager.downVote(postToDownVote);
     }
 
 }

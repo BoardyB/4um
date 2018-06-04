@@ -1,10 +1,10 @@
 package com.github.boardyb.forum.user;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.github.boardyb.forum.post.Post;
+import com.github.boardyb.forum.vote.Vote;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 import static com.google.common.collect.Sets.newHashSet;
@@ -34,13 +34,23 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "upVotedUsers")
-    private Set<Post> upvotedPosts = newHashSet();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Vote> upvotedPosts = newHashSet();
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "downVotedUsers")
-    private Set<Post> downVotedUsers = newHashSet();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Vote> downVotedUsers = newHashSet();
+
+    public User(String id, String username, String password, String forename, String surname, LocalDateTime registerDate, String email, Set<Vote> upvotedPosts, Set<Vote> downVotedUsers) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.forename = forename;
+        this.surname = surname;
+        this.registerDate = registerDate;
+        this.email = email;
+        this.upvotedPosts = upvotedPosts;
+        this.downVotedUsers = downVotedUsers;
+    }
 
     public User() {
     }
@@ -101,12 +111,34 @@ public class User {
         this.email = email;
     }
 
-    public Set<Post> getUpvotedPosts() {
+    public Set<Vote> getUpvotedPosts() {
         return upvotedPosts;
     }
 
-    public void setUpvotedPosts(Set<Post> upvotedPosts) {
+    public void setUpvotedPosts(Set<Vote> upvotedPosts) {
         this.upvotedPosts = upvotedPosts;
+    }
+
+    public Set<Vote> getDownVotedUsers() {
+        return downVotedUsers;
+    }
+
+    public void setDownVotedUsers(Set<Vote> downVotedUsers) {
+        this.downVotedUsers = downVotedUsers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 
     @Override

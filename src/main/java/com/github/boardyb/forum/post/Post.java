@@ -1,15 +1,14 @@
 package com.github.boardyb.forum.post;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.github.boardyb.forum.user.User;
-import org.hibernate.annotations.WhereJoinTable;
+import com.github.boardyb.forum.vote.Vote;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
-import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 
 @Entity
 @Table(name = "posts", schema = "forum")
@@ -31,23 +30,13 @@ public class Post {
     @Column(name = "discussion_id")
     private String discussionId;
 
-    @JsonManagedReference
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(schema = "forum",
-            name = "voting",
-            joinColumns = @JoinColumn(table = "posts",  name = "post_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(table = "users", name = "user_id", referencedColumnName="id"))
-    @WhereJoinTable(clause = "upvoted = true")
-    private List<User> upVotedUsers = newArrayList();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @Where(clause = "is_upvote = true")
+    private Set<Vote> upVotedUsers = newHashSet();
 
-    @JsonManagedReference
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(schema = "forum",
-            name = "voting",
-            joinColumns = @JoinColumn(table = "posts",  name = "post_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(table = "users", name = "user_id", referencedColumnName="id"))
-    @WhereJoinTable(clause = "upvoted = false")
-    private List<User> downVotedUsers = newArrayList();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @Where(clause = "is_upvote = false")
+    private Set<Vote> downVotedUsers = newHashSet();
 
     protected Post() {
     }
@@ -92,19 +81,19 @@ public class Post {
         this.discussionId = discussionId;
     }
 
-    public List<User> getUpVotedUsers() {
+    public Set<Vote> getUpVotedUsers() {
         return upVotedUsers;
     }
 
-    public void setUpVotedUsers(List<User> upVotedUsers) {
+    public void setUpVotedUsers(Set<Vote> upVotedUsers) {
         this.upVotedUsers = upVotedUsers;
     }
 
-    public List<User> getDownVotedUsers() {
+    public Set<Vote> getDownVotedUsers() {
         return downVotedUsers;
     }
 
-    public void setDownVotedUsers(List<User> downVotedUsers) {
+    public void setDownVotedUsers(Set<Vote> downVotedUsers) {
         this.downVotedUsers = downVotedUsers;
     }
 

@@ -4,22 +4,22 @@ public class ResponseMessage {
 
     private String responseMessage;
     private Integer statusCode;
-    private String responseBody;
+    private Object responseBody;
 
     public ResponseMessage() {
     }
 
-    private ResponseMessage(String responseMessage, Integer statusCode, String responseBody) {
+    private ResponseMessage(String responseMessage, Integer statusCode, Object responseBody) {
         this.responseMessage = responseMessage;
         this.statusCode = statusCode;
         this.responseBody = responseBody;
     }
 
-    public static ResponseMessage successfulResponseFor(String responseBody) {
+    public static ResponseMessage successfulResponseFor(Object responseBody) {
         return new ResponseMessage("Operation Successful", 200, responseBody);
     }
 
-    public static ResponseMessage errorResponseFor(String responseBody) {
+    public static ResponseMessage errorResponseFor(Object responseBody) {
         return new ResponseMessage("Operation Failed", 500, responseBody);
     }
 
@@ -39,11 +39,11 @@ public class ResponseMessage {
         this.statusCode = statusCode;
     }
 
-    public String getResponseBody() {
+    public Object getResponseBody() {
         return responseBody;
     }
 
-    public void setResponseBody(String responseBody) {
+    public void setResponseBody(Object responseBody) {
         this.responseBody = responseBody;
     }
 

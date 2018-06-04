@@ -32,13 +32,15 @@ CREATE TABLE forum.users
   forename      VARCHAR(255),
   surname       VARCHAR(255),
   register_date TIMESTAMP,
-  email VARCHAR(255)
+  email         VARCHAR(255)
 );
 
 CREATE TABLE forum.voting
 (
-  post_id VARCHAR(50) NOT NULL REFERENCES forum.posts (id) ON UPDATE CASCADE ON DELETE CASCADE,
-  user_id VARCHAR(50) NOT NULL REFERENCES forum.users (id) ON UPDATE CASCADE ON DELETE CASCADE,
-  upvoted BOOLEAN NOT NULL,
-  CONSTRAINT voting_pkey PRIMARY KEY (post_id, user_id)
+  post_id   VARCHAR(50) NOT NULL REFERENCES forum.posts (id),
+  user_id   VARCHAR(50) NOT NULL REFERENCES forum.users (id),
+  is_upvote BOOLEAN     NOT NULL,
+  CONSTRAINT voting_pkey PRIMARY KEY (post_id, user_id),
+  CONSTRAINT user_post_fkey FOREIGN KEY (post_id) REFERENCES forum.posts (id),
+  CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES forum.users (id)
 );

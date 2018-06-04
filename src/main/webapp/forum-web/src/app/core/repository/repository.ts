@@ -17,7 +17,7 @@ export class Repository<T extends Entity<ID>, ID> {
     this.type = type;
   }
 
-  private static getJsonContentTypeHeader(): HttpHeaders {
+  public static getJsonContentTypeHeader(): HttpHeaders {
     return new HttpHeaders({'Content-Type': 'application/json'});
   }
 

@@ -6,9 +6,9 @@
       </div>
       <div class="col-md-3 score-column">
         <mat-basic-chip class="score-icon" (click)="voteUp(post)"><i class="material-icons">thumb_up_alt</i></mat-basic-chip>
-        <span class="vote-up-count">{{ post.voteUp }}</span>
+        <span class="vote-up-count">{{ post.upVotedUsers.length }}</span>
         <mat-basic-chip class="score-icon" (click)="voteDown(post)"><i class="material-icons">thumb_down_alt</i></mat-basic-chip>
-        <span class="vote-down-count">{{ post.voteDown }}</span>
+        <span class="vote-down-count">{{ post.downVotedUsers.length }}</span>
       </div>
     </div>
     <div class="row">

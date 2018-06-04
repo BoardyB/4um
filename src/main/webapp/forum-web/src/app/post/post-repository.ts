@@ -14,4 +14,10 @@ export class PostRepository extends Repository<Post, string> {
     return this.httpClient.get(this.baseUrl + '/discussion/' + discussionId);
   }
 
+  vote(post: Post, isUpvote: boolean): any {
+    return isUpvote ?
+      this.httpClient.post(this.baseUrl + '/upvote', post)
+      : this.httpClient.post(this.baseUrl + '/downvote', post);
+  }
+
 }

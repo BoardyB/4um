@@ -30,7 +30,7 @@ public class WebSecurityConfig
         corsConfiguration.setAllowedMethods(newArrayList("GET", "POST", "PUT", "OPTIONS", "DELETE"));
         corsConfiguration.setAllowedHeaders(newArrayList("*"));
         corsConfiguration.setMaxAge(age);
-        source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 }

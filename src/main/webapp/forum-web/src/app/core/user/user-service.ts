@@ -9,7 +9,7 @@ export class UserService {
   }
 
   public getUserById(id: string): User {
-    return new User(id, 'Test User', [], 'User', 'Test', new Date(), '');
+    return new User(id, "user", "user", "Elek", "Test", new Date(2018, 6, 4, 9, 19), "elek@test.com");
   }
 
 }

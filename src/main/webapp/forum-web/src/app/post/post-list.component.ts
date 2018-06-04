@@ -1,8 +1,9 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Post} from "./post";
 import {User} from "../core/user/user";
 import {UserService} from "../core/user/user-service";
 import {PostRepository} from "./post-repository";
+import {ResponseMessage} from "../core/response/response-message";
 
 @Component({
   selector: 'forum-post-list',
@@ -12,6 +13,7 @@ import {PostRepository} from "./post-repository";
 export class PostListComponent {
 
   @Input() posts: Post[];
+  @Output() voted: EventEmitter<Post> = new EventEmitter<Post>();
   private userService: UserService;
   private postRepository: PostRepository;
 
@@ -25,11 +27,17 @@ export class PostListComponent {
   }
 
   voteUp(post: Post): void {
-
+    this.postRepository.vote(post, true).subscribe(response => {
+      const responseMessage = ResponseMessage.deserialize(response, Post);
+      this.voted.emit(responseMessage.responseBody);
+    });
   }
 
   voteDown(post: Post): void {
-
+    this.postRepository.vote(post, false).subscribe(response => {
+      const responseMessage = ResponseMessage.deserialize(response, Post);
+      this.voted.emit(responseMessage.responseBody);
+    });
   }
 
 }
