@@ -11,6 +11,13 @@ const routes: Routes = [
     component: DiscussionEditorComponent
   },
   {
+    path: 'edit/:id',
+    component: DiscussionEditorComponent,
+    resolve: {
+      discussion: DiscussionResolver
+    }
+  },
+  {
     path: 'all',
     component: DiscussionTableComponent
   },

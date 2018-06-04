@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
+import {Component, EventEmitter, OnInit, Output, ViewChild} from "@angular/core";
 import {Discussion} from "./discussion";
 import {FormGroup, NgForm} from "@angular/forms";
 import {DiscussionRepository} from "./discussion-repository";
 import {UserService} from "../core/user/user-service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {isPresent} from "../core/util/util";
 
 @Component({
   selector: 'forum-discussion-editor',
@@ -11,7 +12,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./discussion-editor.component.scss']
 })
 export class DiscussionEditorComponent implements OnInit {
-  @Input() discussionId: string;
   @ViewChild('discussionForm') discussionForm: NgForm;
   @Output() saved: EventEmitter<Discussion> = new EventEmitter<Discussion>();
   cardTitle: string;
@@ -21,11 +21,13 @@ export class DiscussionEditorComponent implements OnInit {
   private discussionRepository: DiscussionRepository;
   private userService: UserService;
   private router: Router;
+  private route: ActivatedRoute;
 
-  constructor(discussionRepository: DiscussionRepository, userService: UserService, router: Router) {
+  constructor(discussionRepository: DiscussionRepository, userService: UserService, router: Router, route: ActivatedRoute) {
     this.discussionRepository = discussionRepository;
     this.userService = userService;
     this.router = router;
+    this.route = route;
   }
 
   ngOnInit(): void {
@@ -34,11 +36,10 @@ export class DiscussionEditorComponent implements OnInit {
   }
 
   reset(): void {
-    if (this.discussionId) {
-      this.discussionRepository.findOne(this.discussionId).subscribe(data => {
-        this.discussion = data;
-        this.cardTitle = 'discussion.editor.editTitle';
-      });
+    const loadedDiscussion = this.route.snapshot.data.discussion;
+    if (isPresent(loadedDiscussion)) {
+      this.discussion = Discussion.deserialize(loadedDiscussion);
+      this.cardTitle = 'discussion.editor.editTitle';
     } else {
       this.discussion = Discussion.createEmptyDiscussion();
       this.discussion.creator = this.userService.getCurrentUserId();

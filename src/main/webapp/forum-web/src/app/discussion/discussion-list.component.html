@@ -11,6 +11,9 @@
         </div>
       </mat-panel-description>
       <mat-action-row>
+        <button class="primary-button delete-button-indent" mat-raised-button (click)="edit(discussion.getId())">
+          {{'discussion.table.edit' | translate }}
+        </button>
         <button class="delete-button delete-button-indent" mat-raised-button (click)="delete(discussion)">
           {{'discussion.table.delete' | translate }}
         </button>

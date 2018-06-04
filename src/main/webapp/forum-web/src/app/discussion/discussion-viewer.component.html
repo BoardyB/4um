@@ -21,4 +21,5 @@
     </div>
   </mat-card>
   <forum-post-list [posts]="posts" (voted)="initializePosts()"></forum-post-list>
+  <forum-post-editor [discussion]="discussion" (saved)="initializePosts()"></forum-post-editor>
 </mat-card>

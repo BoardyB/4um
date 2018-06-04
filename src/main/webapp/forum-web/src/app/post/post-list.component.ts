@@ -14,12 +14,14 @@ export class PostListComponent {
 
   @Input() posts: Post[];
   @Output() voted: EventEmitter<Post> = new EventEmitter<Post>();
+  currentUserId: string;
   private userService: UserService;
   private postRepository: PostRepository;
 
   constructor(userService: UserService, postRepository: PostRepository) {
     this.userService = userService;
     this.postRepository = postRepository;
+    this.currentUserId = this.userService.getCurrentUserId();
   }
 
   getCreatorOfPost(post: Post): User {
@@ -27,17 +29,21 @@ export class PostListComponent {
   }
 
   voteUp(post: Post): void {
-    this.postRepository.vote(post, true).subscribe(response => {
-      const responseMessage = ResponseMessage.deserialize(response, Post);
-      this.voted.emit(responseMessage.responseBody);
-    });
+    if (!post.userUpvoted(this.currentUserId)) {
+      this.postRepository.vote(post, true).subscribe(response => {
+        const responseMessage = ResponseMessage.deserialize(response, Post);
+        this.voted.emit(responseMessage.responseBody);
+      });
+    }
   }
 
   voteDown(post: Post): void {
-    this.postRepository.vote(post, false).subscribe(response => {
-      const responseMessage = ResponseMessage.deserialize(response, Post);
-      this.voted.emit(responseMessage.responseBody);
-    });
+    if (!post.userDownvoted(this.currentUserId)) {
+      this.postRepository.vote(post, false).subscribe(response => {
+        const responseMessage = ResponseMessage.deserialize(response, Post);
+        this.voted.emit(responseMessage.responseBody);
+      });
+    }
   }
 
 }

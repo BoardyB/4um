@@ -13,7 +13,6 @@ import {User} from "../core/user/user";
   styleUrls: ['./discussion-viewer.component.scss']
 })
 export class DiscussionViewerComponent implements OnInit {
-
   discussion: Discussion;
   posts: Post[] = [];
   discussionCreator: User;
@@ -41,8 +40,9 @@ export class DiscussionViewerComponent implements OnInit {
   }
 
   private initializePosts() {
+    this.posts = [];
     this.postRepository.findByDiscussion(this.discussion.getId()).subscribe(response => {
-      this.posts = this.postRepository.deserializeFromList(response);
+      response.forEach(data => this.posts.push(Post.deserialize(data)));
     });
   }
 }

@@ -1,0 +1,45 @@
+<mat-card class="post-editor-card">
+  <div class="row">
+    <div class="col-md-3 user-title">
+      <strong>{{discussionCreator.username}}</strong>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group post-editor">
+        <quill-editor #htmlEditor
+                      [style]="{height: '200px'}"
+                      [required]="false"
+                      [placeholder]="'discussion.editor.description' | translate"
+                      matInput
+                      [modules]="{ toolbar: toolbar }"
+                      [(ngModel)]="post.description"
+                      name="postDescription">
+        </quill-editor>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="col-md-1">
+        <button mat-raised-button
+                id="post-reset-button"
+                class="info-button"
+                type="button"
+                (click)="reset()">
+          {{ 'post.editor.reset' | translate }}
+        </button>
+      </div>
+      <div class="col-md-1">
+        <button id="post-save-button"
+                class="primary-button"
+                type="button"
+                (click)="save()"
+                mat-raised-button>
+          {{ 'post.editor.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 post-creation-date">
+      {{post.lastModifiedDate | date: 'medium'}}
+    </div>
+  </div>
+</mat-card>

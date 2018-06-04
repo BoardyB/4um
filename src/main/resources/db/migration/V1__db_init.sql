@@ -17,11 +17,12 @@ CREATE TABLE forum.discussions
 
 CREATE TABLE forum.posts
 (
-  id            VARCHAR(50) PRIMARY KEY NOT NULL,
-  description   VARCHAR(20000),
-  upload_date   TIMESTAMP,
-  creator       VARCHAR(50),
-  discussion_id VARCHAR(50) REFERENCES forum.discussions (id)
+  id                 VARCHAR(50) PRIMARY KEY NOT NULL,
+  description        VARCHAR(20000),
+  last_modified_date TIMESTAMP,
+  creator            VARCHAR(50),
+  discussion_id      VARCHAR(50) REFERENCES forum.discussions (id),
+  edited             BOOLEAN
 );
 
 CREATE TABLE forum.users

@@ -33,14 +33,15 @@ public class PostManager {
 
     public ResponseMessage save(Post post) {
         post.setId(UUID.randomUUID().toString());
-        post.setUploadDate(LocalDateTime.now());
-        post.setCreator("Test User");
+        post.setCreator(authenticationService.getCurrentUser().getId());
+        post.setLastModifiedDate(LocalDateTime.now());
         repository.save(post);
         logger.debug("Post [{}] has been saved successfully", post);
         return ResponseMessage.successfulResponseFor(post.getId());
     }
 
     public ResponseMessage update(Post post) {
+        post.setEdited(true);
         repository.save(post);
         logger.debug("Post [{}] has been updated successfully", post);
         return successfulResponseFor(post.getId());

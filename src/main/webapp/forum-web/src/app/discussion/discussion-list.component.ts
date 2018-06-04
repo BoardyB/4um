@@ -32,4 +32,8 @@ export class DiscussionListComponent {
     this.router.navigateByUrl('/discussion/' + discussionId);
   }
 
+  edit(discussionId: string): void {
+    this.router.navigateByUrl('/discussion/edit/' + discussionId)
+  }
+
 }

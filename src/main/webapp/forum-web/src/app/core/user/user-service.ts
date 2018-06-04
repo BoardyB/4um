@@ -5,7 +5,7 @@ import {User} from "./user";
 export class UserService {
 
   public getCurrentUserId(): string {
-    return 'Test User';
+    return 'userId';
   }
 
   public getUserById(id: string): User {

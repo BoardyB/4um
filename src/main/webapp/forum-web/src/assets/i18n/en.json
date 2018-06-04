@@ -26,10 +26,17 @@
       "allSubtitle": "All discussions",
       "createNew": "New discussion",
       "show": "Show discussion",
-      "delete": "Delete"
+      "delete": "Delete",
+      "edit": "Edit"
+    }
+  },
+  "post": {
+    "list": {
+      "edited": "(edited)"
     },
-    "viewer": {
-
+    "editor": {
+      "reset": "Reset",
+      "save": "Save"
     }
   }
 }

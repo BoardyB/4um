@@ -5,18 +5,22 @@
         <strong>{{getCreatorOfPost(post).username}}</strong>
       </div>
       <div class="col-md-3 score-column">
-        <mat-basic-chip class="score-icon" (click)="voteUp(post)"><i class="material-icons">thumb_up_alt</i></mat-basic-chip>
+        <mat-basic-chip class="score-icon" (click)="voteUp(post)"><i class="material-icons">thumb_up_alt</i>
+        </mat-basic-chip>
         <span class="vote-up-count">{{ post.upVotedUsers.length }}</span>
-        <mat-basic-chip class="score-icon" (click)="voteDown(post)"><i class="material-icons">thumb_down_alt</i></mat-basic-chip>
+        <mat-basic-chip class="score-icon" (click)="voteDown(post)"><i class="material-icons">thumb_down_alt</i>
+        </mat-basic-chip>
         <span class="vote-down-count">{{ post.downVotedUsers.length }}</span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-3 post-creation-date">
-        {{post.uploadDate | date: 'medium'}}
+        {{post.lastModifiedDate | date: 'medium'}}
+        <span *ngIf="post.edited" class="post-edited">&ndash; {{ 'post.list.edited' | translate }}</span>
       </div>
       <div class="col-md-7 post-description-offset"
-           [innerHTML]="post.description | safeHtml"></div>
+           [innerHTML]="post.description | safeHtml">
+      </div>
     </div>
   </mat-card>
 </div>
