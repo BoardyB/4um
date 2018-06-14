@@ -1,0 +1,13 @@
+<ng-template #postEditorModal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{ 'post.editor.editorTitle' | translate }}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <forum-post-editor [post]="post" [discussionId]="discussionId" (saved)="closeModal()"></forum-post-editor>
+    </div>
+  </div>
+</ng-template>

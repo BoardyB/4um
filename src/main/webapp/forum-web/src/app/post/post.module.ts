@@ -4,15 +4,18 @@ import {NgModule} from "@angular/core";
 import {PostRepository} from "./post-repository";
 import {PostListComponent} from "./post-list.component";
 import {PostEditorComponent} from "./post-editor.component";
+import {PostEditorModalComponent} from "./post-editor-modal.component";
 
 @NgModule({
   declarations: [
     PostListComponent,
-    PostEditorComponent
+    PostEditorComponent,
+    PostEditorModalComponent
   ],
   exports: [
     PostListComponent,
-    PostEditorComponent
+    PostEditorComponent,
+    PostEditorModalComponent
   ],
   imports: [
     CoreModule,

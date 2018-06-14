@@ -1,6 +1,7 @@
 import {Entity} from "../core/repository/entity";
 import {User} from "../core/user/user";
 import {deserializeFromList} from "../core/util/util";
+import {Vote} from "./vote/vote";
 
 export class Post extends Entity<string> {
   description: string;
@@ -18,8 +19,8 @@ export class Post extends Entity<string> {
     post.lastModifiedDate = obj.lastModifiedDate;
     post.creator = obj.creator;
     post.discussionId = obj.discussionId;
-    post.upVotedUsers = deserializeFromList(obj.upVotedUsers, User);
-    post.downVotedUsers = deserializeFromList(obj.downVotedUsers, User);
+    post.upVotedUsers = deserializeFromList(obj.upVotedUsers, Vote);
+    post.downVotedUsers = deserializeFromList(obj.downVotedUsers, Vote);
     post.edited = obj.edited;
     return post;
   }

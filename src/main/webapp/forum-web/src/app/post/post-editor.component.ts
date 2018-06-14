@@ -4,7 +4,6 @@ import {isPresent} from "../core/util/util";
 import {User} from "../core/user/user";
 import {UserService} from "../core/user/user-service";
 import {PostRepository} from "./post-repository";
-import {Discussion} from "../discussion/discussion";
 
 @Component({
   selector: 'forum-post-editor',
@@ -13,7 +12,7 @@ import {Discussion} from "../discussion/discussion";
 })
 export class PostEditorComponent implements OnInit {
   @Input() post: Post;
-  @Input() discussion: Discussion;
+  @Input() discussionId: string;
   @Output() saved: EventEmitter<Post> = new EventEmitter<Post>();
   discussionCreator: User;
   private userService: UserService;
@@ -36,7 +35,7 @@ export class PostEditorComponent implements OnInit {
   }
 
   save(): void {
-    this.post.discussionId = this.discussion.getId();
+    this.post.discussionId = this.discussionId;
     this.postRepository.save(this.post).subscribe(response => {
       this.saved.emit(this.post);
       this.reset();

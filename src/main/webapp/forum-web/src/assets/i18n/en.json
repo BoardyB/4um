@@ -32,11 +32,14 @@
   },
   "post": {
     "list": {
-      "edited": "(edited)"
+      "edited": "(edited)",
+      "edit": "Edit",
+      "delete": "Delete"
     },
     "editor": {
       "reset": "Reset",
-      "save": "Save"
+      "save": "Save",
+      "editorTitle": "Edit Post"
     }
   }
 }
