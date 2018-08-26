@@ -8,6 +8,7 @@ import com.github.boardyb.forum.vote.VotingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -41,6 +42,9 @@ public class PostManager {
     }
 
     public ResponseMessage update(Post post) {
+        if (!post.getCreator().equals(authenticationService.getCurrentUser().getId())) {
+            throw new AccessDeniedException("A post can only be edited by its creator.");
+        }
         post.setEdited(true);
         repository.save(post);
         logger.debug("Post [{}] has been updated successfully", post);

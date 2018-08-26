@@ -27,7 +27,12 @@ export class PostEditorComponent implements OnInit {
     if (!isPresent(this.post)) {
       this.post = Post.createEmptyPost();
     }
-    this.discussionCreator = this.userService.getUserById(this.post.creator);
+    if (isPresent(this.post.creator)) {
+      this.discussionCreator = this.userService.getUserById(this.post.creator);
+    } else {
+      this.discussionCreator = this.userService.getUserById(this.userService.getCurrentUserId());
+    }
+
   }
 
   reset(): void {

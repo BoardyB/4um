@@ -13,7 +13,9 @@ import java.util.Objects;
 @IdClass(VoteId.class)
 public class Vote implements Serializable {
 
-    @Id
+    private static final long serialVersionUID = 7609972840616555777L;
+
+	@Id
     private String postId;
 
     @Id

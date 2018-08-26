@@ -2,9 +2,11 @@ package com.github.boardyb.forum.discussion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.boardyb.forum.response.ResponseMessage;
+import com.github.boardyb.forum.security.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,6 +28,9 @@ public class DiscussionController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @PostMapping
     public ResponseMessage save(@RequestBody @Valid Discussion discussion) {
         discussion.setId(UUID.randomUUID().toString());
@@ -36,6 +41,9 @@ public class DiscussionController {
 
     @PutMapping
     public ResponseMessage update(@RequestBody @Valid Discussion discussion) {
+        if (!discussion.getCreator().equals(authenticationService.getCurrentUser().getId())) {
+            throw new AccessDeniedException("A discussion can only be edited by its creator.");
+        }
         repository.save(discussion);
         logger.debug("Discussion [{}] has been updated successfully", discussion);
         return successfulResponseFor(discussion.getId());

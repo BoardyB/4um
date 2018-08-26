@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {User} from "./user";
+import {isPresent} from "../util/util";
+import {MOCK_USERS} from "./mock-users";
 
 @Injectable()
 export class UserService {
@@ -9,7 +11,12 @@ export class UserService {
   }
 
   public getUserById(id: string): User {
-    return new User(id, "user", "user", "Elek", "Test", new Date(2018, 6, 4, 9, 19), "elek@test.com");
+    const user = MOCK_USERS.find((user: User) => user.getId() === id);
+    if (isPresent(user)) {
+      return user;
+    } else {
+      throw new Error("User with the following id [" + id + "] does not exist.");
+    }
   }
 
 }

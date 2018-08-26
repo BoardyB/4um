@@ -8,7 +8,9 @@ import java.util.Objects;
 @Embeddable
 public class VoteId implements Serializable {
 
-    @Column(name = "post_id")
+    private static final long serialVersionUID = -8897299010435568811L;
+
+	@Column(name = "post_id")
     private String postId;
     @Column(name = "user_id")
     private String userId;

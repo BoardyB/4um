@@ -1,31 +1,15 @@
 package com.github.boardyb.forum.post;
 
 import com.github.boardyb.forum.response.ResponseMessage;
-import com.github.boardyb.forum.security.AuthenticationService;
-import com.github.boardyb.forum.user.User;
-import com.github.boardyb.forum.vote.Vote;
-import com.github.boardyb.forum.vote.VotingContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Consumer;
-
-import static com.github.boardyb.forum.response.ResponseMessage.successfulResponseFor;
-import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping("/api/forum/post")
 public class PostController {
-
-    private Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
     private PostManager postManager;
