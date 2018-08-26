@@ -36,6 +36,20 @@ CREATE TABLE forum.users
   email         VARCHAR(255)
 );
 
+CREATE TABLE forum.roles
+(
+  id   VARCHAR(50) PRIMARY KEY NOT NULL,
+  name VARCHAR(50)
+);
+
+CREATE TABLE forum.user_roles
+(
+  user_id VARCHAR(50) NOT NULL REFERENCES forum.users (id),
+  role_id VARCHAR(50) NOT NULL REFERENCES forum.roles (id),
+  CONSTRAINT role_id_fkey FOREIGN KEY (role_id) REFERENCES forum.roles (id),
+  CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES forum.users (id)
+);
+
 CREATE TABLE forum.voting
 (
   post_id   VARCHAR(50) NOT NULL REFERENCES forum.posts (id),

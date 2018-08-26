@@ -1,7 +1,7 @@
 package com.github.boardyb.forum.post;
 
 import com.github.boardyb.forum.response.ResponseMessage;
-import com.github.boardyb.forum.security.AuthenticationService;
+import com.github.boardyb.forum.security.authentication.AuthenticationService;
 import com.github.boardyb.forum.user.User;
 import com.github.boardyb.forum.vote.Vote;
 import com.github.boardyb.forum.vote.VotingContext;

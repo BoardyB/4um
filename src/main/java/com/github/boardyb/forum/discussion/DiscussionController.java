@@ -2,7 +2,7 @@ package com.github.boardyb.forum.discussion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.boardyb.forum.response.ResponseMessage;
-import com.github.boardyb.forum.security.AuthenticationService;
+import com.github.boardyb.forum.security.authentication.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

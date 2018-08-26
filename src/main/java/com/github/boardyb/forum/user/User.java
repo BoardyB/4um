@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import static com.google.common.collect.Sets.newHashSet;
 
@@ -40,7 +41,14 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Vote> downVotedUsers = newHashSet();
 
-    public User(String id, String username, String password, String forename, String surname, LocalDateTime registerDate, String email, Set<Vote> upvotedPosts, Set<Vote> downVotedUsers) {
+    @Column(name = "roles")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"), schema = "forum")
+    private Set<Role> roles = newHashSet();
+
+    public User(String id, String username, String password, String forename, String surname, LocalDateTime registerDate, String email, Set<Vote> upvotedPosts, Set<Vote> downVotedUsers, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -50,6 +58,18 @@ public class User {
         this.email = email;
         this.upvotedPosts = upvotedPosts;
         this.downVotedUsers = downVotedUsers;
+        this.roles = roles;
+    }
+
+    public User(String username, String password, String fullname, String email) {
+        this.id = UUID.randomUUID().toString();
+        this.username = username;
+        this.password = password;
+        String[] splitName = fullname.split("\\s+", 2);
+        this.forename = splitName[0];
+        this.surname = splitName[1];
+        this.registerDate = LocalDateTime.now();
+        this.email = email;
     }
 
     public User() {
@@ -125,6 +145,18 @@ public class User {
 
     public void setDownVotedUsers(Set<Vote> downVotedUsers) {
         this.downVotedUsers = downVotedUsers;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getFullName() {
+        return this.getForename() + " " + this.surname;
     }
 
     @Override

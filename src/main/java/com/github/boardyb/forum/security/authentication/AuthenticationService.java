@@ -1,4 +1,4 @@
-package com.github.boardyb.forum.security;
+package com.github.boardyb.forum.security.authentication;
 
 import com.github.boardyb.forum.user.User;
 import org.springframework.stereotype.Component;
@@ -11,6 +11,6 @@ import static com.google.common.collect.Sets.newHashSet;
 public class AuthenticationService {
 
     public User getCurrentUser() {
-        return new User("userId", "user", "user", "Elek", "Test", LocalDateTime.of(2018, 6, 4, 9, 19), "elek@test.com", newHashSet(), newHashSet());
+        return new User("userId", "user", "user", "Elek", "Test", LocalDateTime.of(2018, 6, 4, 9, 19), "elek@test.com", newHashSet(), newHashSet(), newHashSet());
     }
 }
