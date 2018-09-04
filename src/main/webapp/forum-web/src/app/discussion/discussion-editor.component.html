@@ -1,6 +1,6 @@
 <form #discussionForm="ngForm"
       (ngSubmit)="save(discussionForm)">
-  <mat-card class="discussion-background-card crud-background-card">
+  <mat-card class="discussion-background-card crud-background-card" *ngIf="dataLoaded">
     <mat-card class="discussion-card">
       <div class="row entity-title-padding">
         <div class="col-md-4">
@@ -22,7 +22,7 @@
               <i class="material-icons user-account-icon">
                 account_box
               </i>
-              {{ currentUser }}
+              {{ currentUser.username }}
             </div>
           </div>
           <div class="col-md-4 offset-md-2">

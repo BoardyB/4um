@@ -1,6 +1,8 @@
 package com.github.boardyb.forum.discussion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.boardyb.forum.post.Post;
+import com.github.boardyb.forum.post.PostRepository;
 import com.github.boardyb.forum.response.ResponseMessage;
 import com.github.boardyb.forum.security.authentication.AuthenticationService;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +33,9 @@ public class DiscussionController {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @PostMapping
     public ResponseMessage save(@RequestBody @Valid Discussion discussion) {
@@ -69,6 +75,8 @@ public class DiscussionController {
             discussion.setDeleted(true);
             repository.save(discussion);
             logger.debug("Discussion [{}] has been deleted", discussion);
+            List<Post> postOfDiscussion = postRepository.findAllByDiscussionId(id);
+            postOfDiscussion.forEach((Post post) -> postRepository.delete(post));
             return successfulResponseFor(discussion.getId());
         } else {
             throw new RuntimeException("Discussion with id [" + id + "] does not exist.");

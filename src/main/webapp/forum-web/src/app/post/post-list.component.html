@@ -1,43 +1,46 @@
-<div class="post-container" *ngFor="let post of posts">
-  <mat-card class="post-card">
-    <div class="row entity-title-padding">
-      <div class="col-md-3 user-title">
-        <strong>{{getCreatorOfPost(post).username}}</strong>
-      </div>
-      <div class="col-md-3 score-column">
-        <mat-basic-chip class="score-icon" (click)="voteUp(post)"><i class="material-icons">thumb_up_alt</i>
-        </mat-basic-chip>
-        <span class="vote-up-count">{{ post.upVotedUsers.length }}</span>
-        <mat-basic-chip class="score-icon" (click)="voteDown(post)"><i class="material-icons">thumb_down_alt</i>
-        </mat-basic-chip>
-        <span class="vote-down-count">{{ post.downVotedUsers.length }}</span>
-      </div>
-      <div class="col-md-1 offset-md-5" *ngIf="currentUserId === post.creator">
-        <div dropdown class="btn-group">
-          <button dropdownToggle
-                  type="button"
-                  mat-button
-                  class="dropdown-toggle"
-                  data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-          </button>
-          <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button" (click)="edit(post)">{{ 'post.list.edit' | translate }}</button>
-            <button class="dropdown-item" type="button" (click)="delete(post)">{{ 'post.list.delete' | translate }}
+<div class="post-list-container" *ngIf="dataLoaded">
+  <div class="post-container" *ngFor="let post of posts">
+    <mat-card class="post-card">
+      <div class="row entity-title-padding">
+        <div class="col-md-3 user-title">
+          <strong>{{ currentUser.username }}</strong>
+        </div>
+        <div class="col-md-3 score-column">
+          <mat-basic-chip class="score-icon" (click)="voteUp(post)"><i class="material-icons">thumb_up_alt</i>
+          </mat-basic-chip>
+          <span class="vote-up-count">{{ post.upVotedUsers.length }}</span>
+          <mat-basic-chip class="score-icon" (click)="voteDown(post)"><i class="material-icons">thumb_down_alt</i>
+          </mat-basic-chip>
+          <span class="vote-down-count">{{ post.downVotedUsers.length }}</span>
+        </div>
+        <div class="col-md-1 offset-md-5" *ngIf="currentUserId === post.creator">
+          <div dropdown class="btn-group">
+            <button dropdownToggle
+                    type="button"
+                    mat-button
+                    class="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
             </button>
+            <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
+              <button class="dropdown-item" type="button" (click)="edit(post)">{{ 'post.list.edit' | translate }}
+              </button>
+              <button class="dropdown-item" type="button" (click)="delete(post)">{{ 'post.list.delete' | translate }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 post-creation-date">
-        {{post.lastModifiedDate | date: 'medium'}}
-        <span *ngIf="post.edited" class="post-edited">&ndash; {{ 'post.list.edited' | translate }}</span>
+      <div class="row">
+        <div class="col-md-3 post-creation-date">
+          {{post.lastModifiedDate | date: 'medium'}}
+          <span *ngIf="post.edited" class="post-edited">&ndash; {{ 'post.list.edited' | translate }}</span>
+        </div>
+        <div class="col-md-7 post-description-offset"
+             [innerHTML]="post.description | safeHtml">
+        </div>
       </div>
-      <div class="col-md-7 post-description-offset"
-           [innerHTML]="post.description | safeHtml">
-      </div>
-    </div>
-  </mat-card>
-  <forum-post-editor-modal #postEditorModal></forum-post-editor-modal>
+    </mat-card>
+    <forum-post-editor-modal #postEditorModal></forum-post-editor-modal>
+  </div>
 </div>

@@ -1,22 +1,24 @@
 import {Injectable} from "@angular/core";
 import {User} from "./user";
-import {isPresent} from "../util/util";
-import {MOCK_USERS} from "./mock-users";
+import {HttpClient} from "@angular/common/http";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs/index";
 
 @Injectable()
 export class UserService {
 
-  public getCurrentUserId(): string {
-    return 'userId';
+  constructor(private httpClient: HttpClient) {
   }
 
-  public getUserById(id: string): User {
-    const user = MOCK_USERS.find((user: User) => user.getId() === id);
-    if (isPresent(user)) {
-      return user;
-    } else {
-      throw new Error("User with the following id [" + id + "] does not exist.");
-    }
+  public getCurrentUserId(): string {
+    const userAsJson = JSON.parse(localStorage.getItem('currentUserId'));
+    return userAsJson.userId;
+  }
+
+  public getUserById(id: string): Observable<User> {
+    return this.httpClient.get('/api/auth/user/' + id).pipe(map((user: any) => {
+      return User.deserialize(user.responseBody);
+    }));
   }
 
 }

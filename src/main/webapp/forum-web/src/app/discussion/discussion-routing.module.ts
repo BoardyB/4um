@@ -4,29 +4,34 @@ import {DiscussionEditorComponent} from "./discussion-editor.component";
 import {DiscussionTableComponent} from "./discussion-table.component";
 import {DiscussionViewerComponent} from "./discussion-viewer.component";
 import {DiscussionResolver} from "./discussion.resolver";
+import {AuthGuard} from "../core/security/auth.guard";
 
 const routes: Routes = [
   {
     path: 'new',
-    component: DiscussionEditorComponent
+    component: DiscussionEditorComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit/:id',
     component: DiscussionEditorComponent,
     resolve: {
       discussion: DiscussionResolver
-    }
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: 'all',
-    component: DiscussionTableComponent
+    component: DiscussionTableComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: ':id',
     component: DiscussionViewerComponent,
     resolve: {
       discussion: DiscussionResolver
-    }
+    },
+    canActivate: [AuthGuard]
   }
 ];
 

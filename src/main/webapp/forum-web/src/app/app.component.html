@@ -1,4 +1,4 @@
-<forum-navbar></forum-navbar>
+<forum-navbar *ngIf="isLoggedIn$ | async as isLoggedIn"></forum-navbar>
 <div class="app-container">
   <router-outlet></router-outlet>
 </div>

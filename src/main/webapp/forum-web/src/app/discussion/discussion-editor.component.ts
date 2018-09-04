@@ -5,6 +5,7 @@ import {DiscussionRepository} from "./discussion-repository";
 import {UserService} from "../core/user/user-service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {isPresent} from "../core/util/util";
+import {User} from "../core/user/user";
 
 @Component({
   selector: 'forum-discussion-editor',
@@ -16,8 +17,10 @@ export class DiscussionEditorComponent implements OnInit {
   @Output() saved: EventEmitter<Discussion> = new EventEmitter<Discussion>();
   cardTitle: string;
   discussion: Discussion;
-  currentUser: string;
+  currentUserId: string;
+  currentUser: User;
   toolbar = [['bold', 'italic', 'underline', {color: []}, {header: [1, 2, 3, 4, false]}]];
+  dataLoaded: boolean = false;
   private discussionRepository: DiscussionRepository;
   private userService: UserService;
   private router: Router;
@@ -32,7 +35,11 @@ export class DiscussionEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.reset();
-    this.currentUser = this.userService.getCurrentUserId();
+    this.currentUserId = this.userService.getCurrentUserId();
+    this.userService.getUserById(this.currentUserId).subscribe((user: User) => {
+      this.currentUser = user;
+      this.dataLoaded = true;
+    });
   }
 
   reset(): void {

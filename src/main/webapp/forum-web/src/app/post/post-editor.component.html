@@ -1,7 +1,7 @@
-<mat-card class="post-editor-card">
+<mat-card class="post-editor-card" *ngIf="dataLoaded">
   <div class="row">
     <div class="col-md-3 user-title">
-      <strong>{{discussionCreator.username}}</strong>
+      <strong>{{ discussionCreator.username }}</strong>
     </div>
     <div class="col-md-6">
       <div class="form-group post-editor">

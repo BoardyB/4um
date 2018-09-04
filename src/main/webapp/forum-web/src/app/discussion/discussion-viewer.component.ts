@@ -16,6 +16,7 @@ export class DiscussionViewerComponent implements OnInit {
   discussion: Discussion;
   posts: Post[] = [];
   discussionCreator: User;
+  dataLoaded: boolean = false;
   private postRepository: PostRepository;
   private route: ActivatedRoute;
   private userService: UserService;
@@ -29,7 +30,11 @@ export class DiscussionViewerComponent implements OnInit {
   ngOnInit(): void {
     this.initializeDiscussion();
     this.initializePosts();
-    this.discussionCreator = this.userService.getUserById(this.discussion.creator);
+
+    this.userService.getUserById(this.discussion.creator).subscribe((user: User) => {
+      this.discussionCreator = user;
+      this.dataLoaded = true;
+    });
   }
 
   private initializeDiscussion() {

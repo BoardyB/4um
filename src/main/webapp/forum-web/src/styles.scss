@@ -1,5 +1,6 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~ngx-toastr/toastr.css';
 
 $reset-button-color: #abb7c3;
 $cancel-button-color: #546e7a;
@@ -31,6 +32,7 @@ mat-form-field.mat-form-field {
 
 .crud-background-card {
   background: linear-gradient(to right, #e9e9e9, #ffffff);
+  height: 100%;
 }
 
 .crud-entity-title {

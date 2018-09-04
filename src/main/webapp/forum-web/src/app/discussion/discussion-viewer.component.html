@@ -1,8 +1,8 @@
-<mat-card class="discussion-background-card crud-background-card">
+<mat-card class="discussion-background-card crud-background-card" *ngIf="dataLoaded">
   <mat-card class="discussion-card">
     <div class="row entity-title-padding">
       <div class="col-md-3 user-title">
-        <strong>{{discussionCreator.username}}</strong>
+        <strong>{{ discussionCreator.username }}</strong>
       </div>
       <div class="col-md-6 v-center">
         <mat-card-header>

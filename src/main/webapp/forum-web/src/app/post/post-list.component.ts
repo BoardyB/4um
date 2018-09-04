@@ -18,6 +18,8 @@ export class PostListComponent {
   @Output() dataChanged: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(PostEditorModalComponent) editorModal: PostEditorModalComponent;
   currentUserId: string;
+  currentUser: User;
+  dataLoaded: boolean = false;
   private userService: UserService;
   private postRepository: PostRepository;
   private discussionRepository: DiscussionRepository;
@@ -27,10 +29,10 @@ export class PostListComponent {
     this.postRepository = postRepository;
     this.discussionRepository = discussionRepository;
     this.currentUserId = this.userService.getCurrentUserId();
-  }
-
-  getCreatorOfPost(post: Post): User {
-    return this.userService.getUserById(post.creator);
+    this.userService.getUserById(this.currentUserId).subscribe((user: User) => {
+      this.currentUser = user;
+      this.dataLoaded = true;
+    })
   }
 
   voteUp(post: Post): void {

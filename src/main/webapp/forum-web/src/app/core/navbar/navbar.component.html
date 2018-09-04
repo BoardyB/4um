@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="dataLoaded">
   <mat-toolbar class="navbar-toolbar">
     <div class="col-md-1">
       <button class="navbar-button" type="button" (click)="redirectToDiscussion()" mat-raised-button>
@@ -24,11 +24,11 @@
             <i class="material-icons center-account-icon">
               account_box
             </i>
-            {{ currentUser }}
+            {{ currentUser.username }}
           </li>
           <hr/>
           <button class="dropdown-item" type="button">{{ 'navbar.accountSettings' | translate }}</button>
-          <button class="dropdown-item" type="button">{{ 'navbar.logout' | translate }}</button>
+          <button class="dropdown-item" type="button" (click)="logout()">{{ 'navbar.logout' | translate }}</button>
         </div>
       </div>
     </div>

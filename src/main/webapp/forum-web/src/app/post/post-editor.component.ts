@@ -15,6 +15,7 @@ export class PostEditorComponent implements OnInit {
   @Input() discussionId: string;
   @Output() saved: EventEmitter<Post> = new EventEmitter<Post>();
   discussionCreator: User;
+  dataLoaded: boolean = false;
   private userService: UserService;
   private postRepository: PostRepository;
 
@@ -28,9 +29,16 @@ export class PostEditorComponent implements OnInit {
       this.post = Post.createEmptyPost();
     }
     if (isPresent(this.post.creator)) {
-      this.discussionCreator = this.userService.getUserById(this.post.creator);
+      this.userService.getUserById(this.post.creator).subscribe((user: User) => {
+        this.discussionCreator = user;
+        this.dataLoaded = true;
+      });
     } else {
-      this.discussionCreator = this.userService.getUserById(this.userService.getCurrentUserId());
+      const currentUserId = this.userService.getCurrentUserId();
+      this.userService.getUserById(currentUserId).subscribe((user: User) => {
+        this.discussionCreator = user;
+        this.dataLoaded = true;
+      });
     }
 
   }

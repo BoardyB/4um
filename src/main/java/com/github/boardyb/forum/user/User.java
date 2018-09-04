@@ -72,6 +72,16 @@ public class User {
         this.email = email;
     }
 
+    public User(UserPrincipal userPrincipal) {
+        this.id = userPrincipal.getId();
+        String[] splitName = userPrincipal.getName().split("\\s+", 2);
+        this.forename = splitName[0];
+        this.surname = splitName[1];
+        this.username = userPrincipal.getUsername();
+        this.email = userPrincipal.getEmail();
+        this.password = userPrincipal.getPassword();
+    }
+
     public User() {
     }
 

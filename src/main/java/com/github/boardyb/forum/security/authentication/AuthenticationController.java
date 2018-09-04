@@ -1,5 +1,6 @@
 package com.github.boardyb.forum.security.authentication;
 
+import com.github.boardyb.forum.response.ResponseMessage;
 import com.github.boardyb.forum.security.login.LoginRequest;
 import com.github.boardyb.forum.security.login.SignUpRequest;
 import com.github.boardyb.forum.user.Role;
@@ -14,21 +15,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
-
-//    TODO: Review the whole authentication process, beautify if possible.
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -58,7 +55,7 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, tokenProvider.getUserIdFromJWT(jwt)));
     }
 
     @PostMapping("/signup")
@@ -87,5 +84,11 @@ public class AuthenticationController {
                 .buildAndExpand(result.getUsername()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseMessage getUser(@PathVariable String id) {
+        Optional<User> userOptional = this.userRepository.findById(id);
+        return userOptional.map(ResponseMessage::successfulResponseFor).orElseGet(() -> ResponseMessage.errorResponseFor(""));
     }
 }

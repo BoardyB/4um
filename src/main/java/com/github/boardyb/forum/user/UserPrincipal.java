@@ -5,15 +5,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
 
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -27,7 +24,7 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(String id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -43,7 +40,7 @@ public class UserPrincipal implements UserDetails {
                 .collect(Collectors.toList());
 
         return new UserPrincipal(
-                new Random().nextLong(),
+                user.getId(),
                 user.getFullName(),
                 user.getUsername(),
                 user.getEmail(),
@@ -52,7 +49,7 @@ public class UserPrincipal implements UserDetails {
         );
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

@@ -41,5 +41,11 @@
       "save": "Save",
       "editorTitle": "Edit Post"
     }
+  },
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Login"
   }
 }
