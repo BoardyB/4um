@@ -36,4 +36,8 @@ export class User extends Entity<string> {
     this.registerDate = registerDate;
     this.email = email;
   }
+
+  getDisplayName(): string {
+    return this.forename + ' ' + this.surname;
+  }
 }

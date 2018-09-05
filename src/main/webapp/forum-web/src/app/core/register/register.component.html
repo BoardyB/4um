@@ -1,0 +1,54 @@
+<div class="register-container">
+  <mat-card class="crud-background-card">
+    <mat-card class="register-card">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="register-title">
+            <strong>{{ 'register.title' | translate}}</strong>
+          </div>
+        </div>
+      </div>
+      <form #userForm="ngForm" (ngSubmit)="register(userForm)">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="username-input">
+              <input matInput #usernameInput="ngModel" [(ngModel)]="user.username" name="usernameInput" [placeholder]="'register.username' | translate" required>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="password-input">
+              <input matInput type="password" #passwordInput="ngModel" [(ngModel)]="user.password" name="passwordInput" [placeholder]="'register.password' | translate" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="email-input">
+              <input matInput #emailInput="ngModel" [(ngModel)]="user.email" name="emailInput" [placeholder]="'register.email' | translate" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="forename-input">
+              <input matInput #forenameInput="ngModel" [(ngModel)]="user.forename" name="forenameInput" [placeholder]="'register.foreName' | translate" required>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="password-input">
+              <input matInput #surnameInput="ngModel" [(ngModel)]="user.surname" name="surnameInput" [placeholder]="'register.surName' | translate" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <button mat-raised-button class="cancel-button warning-button" type="button" (click)="navigateToLogin()">{{ 'register.cancelButton' | translate }}</button>
+          </div>
+          <div class="col-md-3 offset-md-6">
+            <button mat-raised-button class="register-button primary-button">{{ 'register.registerButton' | translate }}</button>
+          </div>
+        </div>
+      </form>
+    </mat-card>
+  </mat-card>
+</div>

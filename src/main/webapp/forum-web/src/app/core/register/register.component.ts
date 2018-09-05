@@ -5,11 +5,11 @@ import {AuthenticationService} from "../security/authentication.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'forum-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'forum-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent {
+export class RegisterComponent {
 
   user: User = User.createEmptyUser();
   private authenticationService: AuthenticationService;
@@ -20,16 +20,15 @@ export class LoginComponent {
     this.router = router;
   }
 
-  login(form: NgForm): void {
+  register(form: NgForm): void {
     if (form.valid) {
-      this.authenticationService.login(this.user.username, this.user.password).subscribe(user => {
-        this.router.navigateByUrl('/discussion/all');
+      this.authenticationService.register(this.user).subscribe(data => {
+        this.navigateToLogin();
       });
     }
   }
 
-  navigateToRegister(): void {
-    this.router.navigateByUrl('/register');
+  navigateToLogin(): void {
+    this.router.navigateByUrl('/login');
   }
-
 }

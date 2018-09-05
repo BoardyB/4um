@@ -4,7 +4,7 @@ import {map} from 'rxjs/operators';
 import {User} from "../user/user";
 import {isPresent} from "../util/util";
 import {ToastrService} from "ngx-toastr";
-import {BehaviorSubject} from "rxjs/index";
+import {BehaviorSubject, Observable} from "rxjs/index";
 
 @Injectable()
 export class AuthenticationService {
@@ -34,7 +34,15 @@ export class AuthenticationService {
     localStorage.removeItem('currentUserId');
   }
 
-  userIsAuthenticated(): boolean {
-    return isPresent(localStorage.getItem('currentUserId'));
+  register(user: User): Observable<any> {
+    return this.http.post<any>('/api/auth/signup', {
+      username: user.username,
+      password: user.password,
+      name: user.getDisplayName(),
+      email: user.email
+    }).pipe(map(data => {
+      this.toastrService.success('Registered successfully');
+      return data;
+    }));
   }
 }

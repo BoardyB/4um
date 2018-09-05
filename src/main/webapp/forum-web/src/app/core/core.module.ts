@@ -15,12 +15,14 @@ import {ErrorInterceptor} from "./security/auth.error.interceptor";
 import {JwtInterceptor} from "./security/jwt.interceptor";
 import {LoginComponent} from "./login/login.component";
 import {ToastrModule} from "ngx-toastr";
+import {RegisterComponent} from "./register/register.component";
 
 @NgModule({
   declarations: [
     NavbarComponent,
     SafeHtmlPipe,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

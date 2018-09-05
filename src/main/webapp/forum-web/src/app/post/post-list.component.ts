@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
 import {Post} from "./post";
 import {User} from "../core/user/user";
 import {UserService} from "../core/user/user-service";
@@ -12,7 +12,7 @@ import {PostEditorModalComponent} from "./post-editor-modal.component";
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent {
+export class PostListComponent implements OnInit {
 
   @Input() posts: Post[];
   @Output() dataChanged: EventEmitter<any> = new EventEmitter<any>();
@@ -29,6 +29,10 @@ export class PostListComponent {
     this.postRepository = postRepository;
     this.discussionRepository = discussionRepository;
     this.currentUserId = this.userService.getCurrentUserId();
+  }
+
+
+  ngOnInit(): void {
     this.userService.getUserById(this.currentUserId).subscribe((user: User) => {
       this.currentUser = user;
       this.dataLoaded = true;

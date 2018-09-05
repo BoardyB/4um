@@ -8,8 +8,8 @@ export class Post extends Entity<string> {
   lastModifiedDate: Date;
   creator: string;
   discussionId: string;
-  upVotedUsers: User[];
-  downVotedUsers: User[];
+  upVotedUsers: Vote[];
+  downVotedUsers: Vote[];
   edited: boolean;
 
   public static deserialize(obj: any) {
@@ -30,7 +30,7 @@ export class Post extends Entity<string> {
   }
 
 
-  constructor(id: string, description: string, uploadDate: Date, creator: string, discussionId: string, upVotedUsers: User[], downVotedUsers: User[], edited: boolean) {
+  constructor(id: string, description: string, uploadDate: Date, creator: string, discussionId: string, upVotedUsers: Vote[], downVotedUsers: Vote[], edited: boolean) {
     super();
     this.setId(id);
     this.description = description;
@@ -43,10 +43,10 @@ export class Post extends Entity<string> {
   }
 
   userUpvoted(userId: string): boolean {
-    return this.upVotedUsers.some((user: User) => user.getId() === userId);
+    return this.upVotedUsers.some((vote: Vote) => vote.userId === userId);
   }
 
   userDownvoted(userId: string): boolean {
-    return this.downVotedUsers.some((user: User) => user.getId() === userId);
+    return this.downVotedUsers.some((vote: Vote) => vote.userId === userId);
   }
 }

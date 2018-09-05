@@ -46,6 +46,17 @@
     "title": "Login",
     "username": "Username",
     "password": "Password",
-    "loginButton": "Login"
+    "loginButton": "Login",
+    "registerButton": "Register"
+  },
+  "register": {
+    "title": "Register",
+    "username": "Username",
+    "password": "Password",
+    "foreName": "Forename",
+    "surName": "Surname",
+    "email": "Email Address",
+    "registerButton": "Register",
+    "cancelButton": "Cancel"
   }
 }
