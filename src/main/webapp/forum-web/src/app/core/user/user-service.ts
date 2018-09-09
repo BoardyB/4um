@@ -3,6 +3,7 @@ import {User} from "./user";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Observable} from "rxjs/index";
+import * as jwt_decode from "jwt-decode";
 
 @Injectable()
 export class UserService {
@@ -11,8 +12,14 @@ export class UserService {
   }
 
   public getCurrentUserId(): string {
-    const userAsJson = JSON.parse(localStorage.getItem('currentUserId'));
-    return userAsJson.userId;
+    const userAsJson = JSON.parse(localStorage.getItem('currentUser'));
+    let decodedToken = null;
+    try {
+      decodedToken = jwt_decode(userAsJson.accessToken);
+    } catch (Error) {
+      throw new Error('Access token cannot be decoded.');
+    }
+    return decodedToken.sub;
   }
 
   public getUserById(id: string): Observable<User> {
@@ -21,4 +28,11 @@ export class UserService {
     }));
   }
 
+  public getUsersByIds(ids: string[]): Observable<User[]> {
+    return this.httpClient.post('/api/auth/user', ids ).pipe(map((data: any) => {
+      const deserializedUsers = [];
+      data.forEach(user => deserializedUsers.push(User.deserialize(user)));
+      return deserializedUsers;
+    }));
+  }
 }

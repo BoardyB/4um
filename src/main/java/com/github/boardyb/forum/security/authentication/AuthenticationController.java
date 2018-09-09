@@ -21,7 +21,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -55,7 +58,7 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, tokenProvider.getUserIdFromJWT(jwt)));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
     @PostMapping("/signup")
@@ -90,5 +93,13 @@ public class AuthenticationController {
     public ResponseMessage getUser(@PathVariable String id) {
         Optional<User> userOptional = this.userRepository.findById(id);
         return userOptional.map(ResponseMessage::successfulResponseFor).orElseGet(() -> ResponseMessage.errorResponseFor(""));
+    }
+
+    @PostMapping("/user")
+    public List<User> getUsersByIds(@RequestBody List<String> users) {
+        if (users.isEmpty()) {
+            return newArrayList();
+        }
+        return this.userRepository.findByIdIn(users);
     }
 }

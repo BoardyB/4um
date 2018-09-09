@@ -27,7 +27,7 @@
             {{ currentUser.username }}
           </li>
           <hr/>
-          <button class="dropdown-item" type="button">{{ 'navbar.accountSettings' | translate }}</button>
+          <button class="dropdown-item" type="button" (click)="navigateToUserDetails()">{{ 'navbar.accountSettings' | translate }}</button>
           <button class="dropdown-item" type="button" (click)="logout()">{{ 'navbar.logout' | translate }}</button>
         </div>
       </div>

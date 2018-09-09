@@ -1,0 +1,35 @@
+.user-details-container {
+  height: 100%;
+}
+
+.user-detail-card {
+  width: 100%;
+  background-color: #9c9c9c;
+  color: white;
+}
+
+.user-sidenav {
+  background-color: #e9e9e9;
+}
+
+.user-sidenav-option {
+  padding-left: 25px;
+  padding-bottom: 10px;
+  padding-top: 23px;
+}
+
+.user-sidenav-container {
+  height: 100%;
+}
+
+.user-detail-container {
+  text-align: center;
+}
+
+mat-sidenav,
+mat-sidenav.md-locked-open,
+mat-sidenav.md-closed.md-locked-open-add-active {
+  min-width: 200px !important;
+  width: 10vw !important;
+  max-width: 400px !important;
+}

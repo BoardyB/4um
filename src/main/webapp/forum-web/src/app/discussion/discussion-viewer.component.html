@@ -20,6 +20,6 @@
            [innerHTML]="discussion.description | safeHtml"></div>
     </div>
   </mat-card>
-  <forum-post-list [posts]="posts" (dataChanged)="initializePosts()"></forum-post-list>
+  <forum-post-list [posts]="posts" (dataChanged)="initializePosts()" *ngIf="posts.length !== 0"></forum-post-list>
   <forum-post-editor [discussionId]="discussion.getId()" (saved)="initializePosts()"></forum-post-editor>
 </mat-card>

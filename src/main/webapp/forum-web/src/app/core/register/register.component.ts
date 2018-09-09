@@ -18,6 +18,7 @@ export class RegisterComponent {
   constructor(authenticationService: AuthenticationService, router: Router) {
     this.authenticationService = authenticationService;
     this.router = router;
+    this.authenticationService.logout();
   }
 
   register(form: NgForm): void {

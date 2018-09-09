@@ -11,6 +11,7 @@ export class Post extends Entity<string> {
   upVotedUsers: Vote[];
   downVotedUsers: Vote[];
   edited: boolean;
+  creatorUser: User;
 
   public static deserialize(obj: any) {
     const post = this.createEmptyPost();
@@ -22,6 +23,7 @@ export class Post extends Entity<string> {
     post.upVotedUsers = deserializeFromList(obj.upVotedUsers, Vote);
     post.downVotedUsers = deserializeFromList(obj.downVotedUsers, Vote);
     post.edited = obj.edited;
+    post.creatorUser = obj.creatorUser;
     return post;
   }
 

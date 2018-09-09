@@ -38,4 +38,8 @@ export class NavbarComponent implements OnInit {
     this.authenticationService.logout();
     this.router.navigateByUrl('/login');
   }
+
+  navigateToUserDetails(): void {
+    this.router.navigateByUrl('/user/view/' + this.userService.getCurrentUserId());
+  }
 }

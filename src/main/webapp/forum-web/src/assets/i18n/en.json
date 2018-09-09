@@ -58,5 +58,18 @@
     "email": "Email Address",
     "registerButton": "Register",
     "cancelButton": "Cancel"
+  },
+  "user": {
+    "sidenav": {
+      "details": "Details",
+      "settings": "Settings"
+    },
+    "details": {
+      "username": "Username",
+      "email": "Email Address",
+      "forename": "Forename",
+      "surname": "Surname",
+      "registerDate": "Registered on"
+    }
   }
 }

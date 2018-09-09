@@ -4,7 +4,7 @@ import {
   MatCardModule, MatChipsModule,
   MatExpansionModule,
   MatInputModule,
-  MatListModule,
+  MatListModule, MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -18,7 +18,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatCardModule,
     MatListModule,
     MatExpansionModule,
-    MatChipsModule],
+    MatChipsModule,
+    MatSidenavModule],
   exports: [
     MatButtonModule,
     MatToolbarModule,
@@ -27,7 +28,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatCardModule,
     MatListModule,
     MatExpansionModule,
-    MatChipsModule],
+    MatChipsModule,
+    MatSidenavModule],
 })
 export class MaterialModule {
 }

@@ -12,9 +12,9 @@ import {PostEditorModalComponent} from "./post-editor-modal.component";
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit{
 
-  @Input() posts: Post[];
+  @Input() posts: Post[] = [];
   @Output() dataChanged: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(PostEditorModalComponent) editorModal: PostEditorModalComponent;
   currentUserId: string;
@@ -33,10 +33,20 @@ export class PostListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.userService.getUserById(this.currentUserId).subscribe((user: User) => {
-      this.currentUser = user;
+    if (this.posts.length === 0) {
+      return;
+    }
+    this.loadCreatorsOfPosts();
+  }
+
+  private loadCreatorsOfPosts() {
+    const userIds = this.posts.map((post: Post) => post.creator);
+    this.userService.getUsersByIds(userIds).subscribe((users: User[]) => {
+      this.posts.forEach((post: Post) => {
+        post.creatorUser = users.find((user: User) => user.getId() === post.creator);
+      });
       this.dataLoaded = true;
-    })
+    });
   }
 
   voteUp(post: Post): void {

@@ -1,0 +1,54 @@
+<div class="user-details-container">
+  <mat-sidenav-container class="user-sidenav-container">
+    <mat-sidenav class="user-sidenav" mode="side" opened>
+      <div class="user-sidenav-option">
+        <button mat-raised-button>{{ 'user.sidenav.details' | translate }}</button>
+      </div>
+      <div class="user-sidenav-option">
+        <button mat-raised-button disabled>{{ 'user.sidenav.settings' | translate }}</button>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-card class="crud-background-card">
+        <mat-card class="user-detail-card">
+          <div class="row">
+            <div class="col-md-2 user-detail-container" *ngIf="user.username">
+              <strong>{{ 'user.details.username' | translate }}</strong>
+            </div>
+            <div class="col-md-3 user-detail-container" *ngIf="user.username">
+              {{ user.username }}
+            </div>
+            <div class="col-md-2 offset-md-2 user-detail-container" *ngIf="user.email">
+              <strong>{{ 'user.details.email' | translate }}</strong>
+            </div>
+            <div class="col-md-3 user-detail-container" *ngIf="user.email">
+              {{ user.email }}
+            </div>
+          </div>
+        </mat-card>
+        <mat-card class="user-detail-card">
+          <div class="row">
+            <div class="col-md-2 user-detail-container" *ngIf="user.forename">
+              <strong>{{ 'user.details.forename' | translate }}</strong>
+            </div>
+            <div class="col-md-2 user-detail-container" *ngIf="user.forename">
+              {{ user.forename }}
+            </div>
+            <div class="col-md-2 user-detail-container" *ngIf="user.surname">
+              <strong>{{ 'user.details.surname' | translate }}</strong>
+            </div>
+            <div class="col-md-2 user-detail-container" *ngIf="user.surname">
+              {{ user.surname }}
+            </div>
+            <div class="col-md-2 user-detail-container" *ngIf="user.registerDate">
+              <strong>{{ 'user.details.registerDate' | translate }}</strong>
+            </div>
+            <div class="col-md-2 user-detail-container" *ngIf="user.registerDate">
+              {{ user.registerDate | date:'longDate' }}
+            </div>
+          </div>
+        </mat-card>
+      </mat-card>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

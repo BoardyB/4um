@@ -3,7 +3,7 @@
     <mat-card class="post-card">
       <div class="row entity-title-padding">
         <div class="col-md-3 user-title">
-          <strong>{{ currentUser.username }}</strong>
+          <strong>{{ post.creatorUser.username }}</strong>
         </div>
         <div class="col-md-3 score-column">
           <mat-basic-chip class="score-icon" (click)="voteUp(post)"><i class="material-icons">thumb_up_alt</i>

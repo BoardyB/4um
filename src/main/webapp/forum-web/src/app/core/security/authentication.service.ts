@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {User} from "../user/user";
-import {isPresent} from "../util/util";
 import {ToastrService} from "ngx-toastr";
 import {BehaviorSubject, Observable} from "rxjs/index";
+import * as jwt_decode from "jwt-decode";
 
 @Injectable()
 export class AuthenticationService {
@@ -15,23 +15,28 @@ export class AuthenticationService {
   }
 
   isLoggedIn() {
+    if (localStorage.getItem('currentUser')) {
+      this.loggedIn.next(true);
+    } else {
+      this.loggedIn.next(false);
+    }
     return this.loggedIn.asObservable();
   }
 
   login(username: string, password: string) {
     return this.http.post<any>('/api/auth/signin', {usernameOrEmail: username, password: password}).pipe(map(user => {
       if (user && user.accessToken) {
-        localStorage.setItem('currentUserId', JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify(user));
       }
       this.toastrService.success('Successful login!');
       this.loggedIn.next(true);
-      return User.deserialize(user);
+      return jwt_decode(user.accessToken).sub;
     }));
   }
 
   logout(): void {
     this.loggedIn.next(false);
-    localStorage.removeItem('currentUserId');
+    localStorage.removeItem('currentUser');
   }
 
   register(user: User): Observable<any> {

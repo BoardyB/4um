@@ -84,7 +84,8 @@ public class WebSecurityConfig
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js")
+                        "/**/*.js",
+                        "/**/en.json")
                 .permitAll()
                 .antMatchers("/api/auth/**")
                 .permitAll()

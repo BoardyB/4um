@@ -16,6 +16,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'user',
+    loadChildren: './core/user/user.module#UserModule',
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
     pathMatch: 'full',
     component: LoginComponent

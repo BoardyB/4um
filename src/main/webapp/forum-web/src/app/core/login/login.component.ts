@@ -18,6 +18,7 @@ export class LoginComponent {
   constructor(authenticationService: AuthenticationService, router: Router) {
     this.authenticationService = authenticationService;
     this.router = router;
+    this.authenticationService.logout();
   }
 
   login(form: NgForm): void {
