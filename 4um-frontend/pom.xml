@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.github.boardyb</groupId>
+    <artifactId>4um</artifactId>
+    <!-- see https://maven.apache.org/maven-ci-friendly.html -->
+    <version>${revision}${sha1}${changelist}</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>4um-frontend</artifactId>
+  <name>4um Frontend</name>
+  <description></description>
+
+  <properties>
+    <project.docker.registry>valami.io</project.docker.registry>
+    <project.docker.group>4um</project.docker.group>
+    <project.docker.name>${project.artifactId}</project.docker.name>
+    <project.docker.repository>${project.docker.registry}/${project.docker.group}/${project.docker.name}
+    </project.docker.repository>
+  </properties>
+
+  <build>
+    <plugins>
+
+      <!-- disable maven-jar-plugin by binding it to a non-existent phase -->
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-jar</id>
+            <phase>never</phase>
+            <configuration>
+              <finalName>unwanted</finalName>
+              <classifier>unwanted</classifier>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- exec plugin -->
+      <!-- compile: npm version -->
+      <!-- compile: npm ci -->
+      <!-- test: npm test:ci -->
+      <!-- package: npm run build:prod -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <id>bump-version</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>version</argument>
+                <argument>${applicationVersion}</argument>
+                <argument>--allow-same-version</argument>
+                <argument>--no-git-tag-version</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <!-- <execution>
+            <id>install-node-modules</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>ci</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>run-tests</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>run</argument>
+                <argument>test:ci</argument>
+              </arguments>
+              <skip>${skipTests}</skip>
+            </configuration>
+          </execution> -->
+          <execution>
+            <id>build-prod</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>run</argument>
+                <argument>${npm.cmd.build}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- build docker image -->
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>${spotify.dockerfile-maven-plugin.version}</version>
+        <executions>
+          <!-- Build and tag Docker image on mvn package phase-->
+          <execution>
+            <id>build-docker-image</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+
+          <!-- Additionally tag Docker image as "latest" on mvn package phase -->
+          <execution>
+            <id>tag-docker-image-with-tag-latest</id>
+            <phase>package</phase>
+            <goals>
+              <goal>tag</goal>
+            </goals>
+            <configuration>
+              <tag>latest</tag>
+            </configuration>
+          </execution>
+
+          <!-- Push docker image to docker repository on mvn deploy phase -->
+          <execution>
+            <id>push-versioned</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>push</goal>
+            </goals>
+          </execution>
+
+          <!-- Push docker image with tag "latest" to docker repository on mvn deploy phase -->
+          <execution>
+            <id>push-docker-image-with-tag-latest</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>push</goal>
+            </goals>
+            <configuration>
+              <tag>latest</tag>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <repository>${project.docker.repository}</repository>
+          <tag>${applicationVersion}</tag>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

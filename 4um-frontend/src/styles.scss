@@ -1,0 +1,82 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~ngx-toastr/toastr.css';
+
+@import '~quill/dist/quill.snow.css';
+
+$reset-button-color: #abb7c3;
+$cancel-button-color: #546e7a;
+$save-button-color: #0088cc;
+
+mat-form-field.mat-form-field {
+  width: 100%;
+}
+
+.info-button {
+  background-color: $reset-button-color;
+  color: white;
+}
+
+.warning-button {
+  background-color: $cancel-button-color;
+  color: white;
+}
+
+.primary-button {
+  background-color: $save-button-color;
+  color: white;
+}
+
+.delete-button {
+  background-color: $cancel-button-color;
+  color: white;
+}
+
+.crud-background-card {
+  background: linear-gradient(to right, #e9e9e9, #ffffff);
+  height: 100%;
+}
+
+.crud-entity-title {
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.crud-entity-subtitle {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.58);
+  padding-left: 20px;
+}
+
+.error-icon {
+  font-size: 1.5em;
+  position: absolute;
+  margin-top: 0;
+  right: 0;
+  top: -1px;
+}
+
+::ng-deep .mat-form-field-label {
+  color: black;
+}
+
+.form-horizontal {
+  height: 100%;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
+.entity-title-padding {
+  padding-bottom: 10px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
