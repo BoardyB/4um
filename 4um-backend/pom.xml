@@ -20,7 +20,7 @@
 
         <spotify.dockerfile-maven-plugin.version>1.4.9</spotify.dockerfile-maven-plugin.version>
 
-        <project.docker.registry>valami.io</project.docker.registry>
+        <project.docker.registry>4umregistry.azurecr.io</project.docker.registry>
         <project.docker.group>4um</project.docker.group>
         <project.docker.name>${project.artifactId}</project.docker.name>
         <project.docker.repository>${project.docker.registry}/${project.docker.group}/${project.docker.name}
