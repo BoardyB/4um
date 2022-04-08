@@ -149,7 +149,7 @@ stages:
             displayName: Set release tag on Github repository
             condition: and(succeeded(), eq(variables.sourceBranch, 'master'))
             inputs:
-              gitHubConnection: 'github.com_BoardyB'
+              gitHubConnection: 'BoardyB'
               repositoryName: '$(Build.Repository.Name)'
               tag: '$(version)'
               assetUploadMode: replace
