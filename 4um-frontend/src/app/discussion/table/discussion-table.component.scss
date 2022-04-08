@@ -25,7 +25,13 @@
 }
 
 .new-discussion-button {
-  margin-left: 57px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.create-new-button {
+  display: flex;
 }
 
 .discussion-table-container {

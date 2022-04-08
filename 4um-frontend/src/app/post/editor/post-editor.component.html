@@ -16,24 +16,26 @@
         </quill-editor>
       </div>
     </div>
-    <div class="actions">
-      <div class="col-md-1">
-        <button mat-raised-button
-                id="post-reset-button"
-                class="info-button"
-                type="button"
-                (click)="reset()">
-          {{ 'post.editor.reset' | translate }}
-        </button>
-      </div>
-      <div class="col-md-1">
-        <button id="post-save-button"
-                class="primary-button"
-                type="button"
-                (click)="save()"
-                mat-raised-button>
-          {{ 'post.editor.save' | translate }}
-        </button>
+    <div class="actions col-md-3">
+      <div class="buttons-row">
+        <div class="col-md-3">
+          <button mat-raised-button
+                  id="post-reset-button"
+                  class="info-button"
+                  type="button"
+                  (click)="reset()">
+            {{ 'post.editor.reset' | translate }}
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button id="post-save-button"
+                  class="primary-button"
+                  type="button"
+                  (click)="save()"
+                  mat-raised-button>
+            {{ 'post.editor.save' | translate }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
