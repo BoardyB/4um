@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: forum-frontend-service
+  labels:
+    app: forum
+    tier: frontend
+spec:
+  selector:
+    app: forum
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: forum-fe-port
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forum-frontend-deployment
+  labels:
+    app: forum
+    tier: frontend
+spec:
+  selector:
+    matchLabels:
+      app: forum
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: forum
+        tier: frontend
+    spec:
+      containers:
+        - name: forum-frontend
+          image: 4umregistry.azurecr.io/4um/4um-frontend:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 100Mi
+          ports:
+            - name: forum-fe-port
+              containerPort: 80
+          env:
+            - name: API_URL
+              value: "https://4um.online"
+      imagePullSecrets:
+        - name: regcred
