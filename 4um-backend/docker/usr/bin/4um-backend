@@ -1,8 +1,0 @@
-#!/bin/sh
-
-if [ "$SPRING_REMOTE_DEBUG" = "1" ]; then
-    echo "running with remote debugging option"
-    java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,suspend=n -jar /app/4um-backend.jar
-else
-    java -jar /app/4um-backend.jar
-fi
