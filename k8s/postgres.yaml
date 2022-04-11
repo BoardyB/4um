@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: forum-postgres-pv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 2Gi
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/forum-postgres-pv
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: forum-postgres-pvc
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  volumeName: forum-postgres-pv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forum-postgres-service
+spec:
+  selector:
+    app: forum-postgres-container
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: forum-pg-port
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forum-postgres-db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate # shuts down old pod before creating new one
+  selector:
+    matchLabels:
+      app: forum-postgres-container
+  template:
+    metadata:
+      labels:
+        app: forum-postgres-container
+        tier: backend
+    spec:
+      containers:
+        - name: forum-postgres-container
+          image: postgres:11
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: forum-postgres-db-credentials
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: forum-postgres-db-credentials
+                  key: password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: forum-postgres-db-credentials
+                  key: db
+          ports:
+            - name: forum-pg-port
+              containerPort: 5432
+          volumeMounts:
+            - name: forum-postgres-volume-mount
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: forum-postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: forum-postgres-pvc
