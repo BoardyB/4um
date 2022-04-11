@@ -72,8 +72,6 @@ stages:
               javaHomeOption: 'JDKVersion'
               jdkVersionOption: '1.11'
               jdkArchitectureOption: 'x64'
-              publishJUnitResults: true
-              testResultsFiles: '**/TEST-*.xml'
               goals: 'package'
 
           - task: PowerShell@2
@@ -149,7 +147,7 @@ stages:
             displayName: Set release tag on Github repository
             condition: and(succeeded(), eq(variables.sourceBranch, 'master'))
             inputs:
-              gitHubConnection: 'github.com_boardyb'
+              gitHubConnection: 'github.com_BoardyB'
               repositoryName: '$(Build.Repository.Name)'
               tag: '$(version)'
               assetUploadMode: replace
