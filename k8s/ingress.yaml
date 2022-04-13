@@ -1,9 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: example-ingress
+  name: forum-ingress
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
     - host: 4um.online
@@ -16,3 +18,10 @@ spec:
                 name: forum-frontend-service
                 port:
                   number: 80
+          - path: /(api)/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: forum-backend-service
+                port:
+                  number: 8080
