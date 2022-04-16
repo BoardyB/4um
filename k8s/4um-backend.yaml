@@ -41,7 +41,6 @@ spec:
           resources:
             requests:
               cpu: 100m # in millicores; 100m = 100 millicpu = 0.1 of total CPU core
-              memory: 2560m
           ports:
             - name: forum-be-port
               containerPort: 8080
