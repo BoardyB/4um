@@ -12,41 +12,41 @@ import java.util.List;
 public class PostController {
 
     @Autowired
-    private PostManager postManager;
+    private PostService postService;
 
     @PostMapping
     public ResponseMessage save(@RequestBody @Valid Post post) {
-        return postManager.save(post);
+        return postService.save(post);
     }
 
     @PutMapping
     public ResponseMessage update(@RequestBody @Valid Post post) {
-        return postManager.update(post);
+        return postService.update(post);
     }
 
     @GetMapping("/{id}")
     public Post get(@PathVariable("id") String id) {
-        return postManager.get(id);
+        return postService.get(id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseMessage delete(@PathVariable("id") String id) {
-        return postManager.delete(id);
+        return postService.delete(id);
     }
 
     @GetMapping("/discussion/{id}")
     public List<Post> getPostsOfDiscussion(@PathVariable("id") String id) {
-        return postManager.getPostsOfDiscussion(id);
+        return postService.getPostsOfDiscussion(id);
     }
 
     @PostMapping("/upvote")
     public ResponseMessage upvote(@RequestBody @Valid Post postToUpVote) {
-        return postManager.upvote(postToUpVote);
+        return postService.upvote(postToUpVote);
     }
 
     @PostMapping("/downvote")
     public ResponseMessage downVote(@RequestBody @Valid Post postToDownVote) {
-        return postManager.downVote(postToDownVote);
+        return postService.downVote(postToDownVote);
     }
 
 }

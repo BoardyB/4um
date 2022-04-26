@@ -20,18 +20,21 @@
 
 .score-column {
   padding-left: 42px;
+  display: flex;
 }
 
 .vote-up-count {
   padding-left: 5px;
   color: #049800;
   padding-right: 8px;
+  padding-top: 5px;
 }
 
 .vote-down-count {
   padding-left: 5px;
   color: #ff3119;
   padding-right: 8px;
+  padding-top: 5px;
 }
 
 .score-icon {

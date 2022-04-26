@@ -46,4 +46,19 @@ export class DiscussionTableComponent implements OnInit {
   redirectToNewDiscussion(): void {
     this.router.navigateByUrl('/discussion/new');
   }
+
+  searchDiscussions(event: Event) {
+    const value = (event.target as any).value;
+    const requestBody: any = {featured: false};
+    if (!!value) {
+      requestBody.filter = value.trim();
+    }
+    this.discussionRepository.findAll(requestBody).subscribe(result => {
+      this.discussions = this.discussionRepository.deserializeFromList(result);
+    });
+    requestBody.featured = true;
+    this.discussionRepository.findAll(requestBody).subscribe(result => {
+      this.featuredDiscussions = this.discussionRepository.deserializeFromList(result);
+    });
+  }
 }

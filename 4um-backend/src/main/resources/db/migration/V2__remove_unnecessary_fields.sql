@@ -1,0 +1,1 @@
+alter table forum.discussions drop column locked;

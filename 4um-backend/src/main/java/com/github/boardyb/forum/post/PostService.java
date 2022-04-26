@@ -1,15 +1,15 @@
 package com.github.boardyb.forum.post;
 
+import com.github.boardyb.forum.discussion.DiscussionService;
 import com.github.boardyb.forum.response.ResponseMessage;
 import com.github.boardyb.forum.security.authentication.AuthenticationService;
 import com.github.boardyb.forum.user.User;
 import com.github.boardyb.forum.vote.Vote;
 import com.github.boardyb.forum.vote.VotingContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,10 +21,9 @@ import java.util.function.Consumer;
 import static com.github.boardyb.forum.response.ResponseMessage.successfulResponseFor;
 import static java.util.Objects.isNull;
 
-@Component
-public class PostManager {
-
-    private Logger logger = LoggerFactory.getLogger(PostManager.class);
+@Slf4j
+@Service
+public class PostService {
 
     @Autowired
     private PostRepository repository;
@@ -32,12 +31,19 @@ public class PostManager {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private DiscussionService discussionService;
+
     public ResponseMessage save(Post post) {
         post.setId(UUID.randomUUID().toString());
         post.setCreator(authenticationService.getCurrentUser().getId());
         post.setLastModifiedDate(LocalDateTime.now());
         repository.save(post);
-        logger.debug("Post [{}] has been saved successfully", post);
+        log.debug("Post [{}] has been saved successfully", post);
+        List<Post> postsOfDiscussion = repository.findAllByDiscussionId(post.getDiscussionId());
+        if (postsOfDiscussion.size() >= 3) {
+            discussionService.setDiscussionFeatured(post.getDiscussionId());
+        }
         return ResponseMessage.successfulResponseFor(post.getId());
     }
 
@@ -47,7 +53,7 @@ public class PostManager {
         }
         post.setEdited(true);
         repository.save(post);
-        logger.debug("Post [{}] has been updated successfully", post);
+        log.debug("Post [{}] has been updated successfully", post);
         return successfulResponseFor(post.getId());
     }
 
@@ -55,7 +61,7 @@ public class PostManager {
         Optional<Post> optionalPost = repository.findById(id);
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-            logger.debug("Discussion [{}] has been loaded", post);
+            log.debug("Discussion [{}] has been loaded", post);
             return post;
         } else {
             throw new PostNotFoundException(id);
@@ -67,7 +73,7 @@ public class PostManager {
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
             repository.delete(post);
-            logger.debug("Post [{}] has been deleted", post);
+            log.debug("Post [{}] has been deleted", post);
             return ResponseMessage.successfulResponseFor(post.getId());
         } else {
             throw new PostNotFoundException(id);
@@ -94,7 +100,7 @@ public class PostManager {
             VotingContext votingContext = new VotingContext(post, currentUser);
             consumer.accept(votingContext);
             repository.save(votingContext.getPost());
-            logger.debug("Post [{}] has been voted by user [{}] successfully", post.getId(), currentUser.getId());
+            log.debug("Post [{}] has been voted by user [{}] successfully", post.getId(), currentUser.getId());
             return ResponseMessage.successfulResponseFor(post);
         } else {
             throw new PostNotFoundException(postToUpvote.getId());

@@ -30,8 +30,6 @@ public class Discussion {
     private String description;
     @Column(name = "creator")
     private String creator;
-    @Column(name = "locked")
-    private boolean locked = false;
     @Column(name = "featured")
     private boolean featured = false;
     @Column(name = "deleted")

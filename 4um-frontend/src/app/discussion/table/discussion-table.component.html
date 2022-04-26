@@ -1,5 +1,16 @@
 <div class="discussion-table-container">
   <mat-card class="discussion-table-background-card crud-background-card">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 navbar-search-input">
+        <mat-form-field class="navbar-search-field">
+          <input class="text-align-right"
+                 matInput
+                 [placeholder]="'navbar.search' | translate"
+                 (input)="searchDiscussions($event)">
+        </mat-form-field>
+      </div>
+    </div>
+
     <mat-card class="discussion-card">
       <div class="row entity-title-padding">
         <div class="col-md-4 v-center">
@@ -11,7 +22,8 @@
           </mat-card-header>
         </div>
         <div class="col-md-8 new-discussion-button">
-          <button class="create-new-button primary-button" type="button" (click)="redirectToNewDiscussion()" mat-raised-button>
+          <button class="create-new-button primary-button" type="button" (click)="redirectToNewDiscussion()"
+                  mat-raised-button>
             {{ 'discussion.table.createNew' | translate }}
           </button>
         </div>

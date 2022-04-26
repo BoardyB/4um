@@ -6,7 +6,6 @@ export class Discussion extends Entity<string> {
   title: string;
   description: string;
   creator: string;
-  locked: boolean;
   featured: boolean;
   deleted: boolean;
 
@@ -18,24 +17,22 @@ export class Discussion extends Entity<string> {
     discussion.title = obj.title;
     discussion.description = obj.description;
     discussion.creator = obj.creator;
-    discussion.locked = obj.locked;
     discussion.featured = obj.featured;
     discussion.deleted = obj.deleted;
     return discussion;
   }
 
   public static createEmptyDiscussion(): Discussion {
-    return new Discussion(null, null, null, null, new Date(), null, false, false, false);
+    return new Discussion(null, null, null, null, new Date(), null, false, false);
   }
 
 
-  constructor(id: string, postCount: number, title: string, description: string, creationDate: Date, creator: string, isLocked: boolean, isFeatured: boolean, isDeleted: boolean) {
+  constructor(id: string, postCount: number, title: string, description: string, creationDate: Date, creator: string, isFeatured: boolean, isDeleted: boolean) {
     super();
     this.setId(id);
     this.postCount = postCount;
     this.creationDate = creationDate;
     this.creator = creator;
-    this.locked = isLocked;
     this.featured = isFeatured;
     this.deleted = isDeleted;
   }
