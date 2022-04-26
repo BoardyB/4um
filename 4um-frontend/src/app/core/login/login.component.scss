@@ -6,6 +6,26 @@
   transform: translate(-50%, -50%);
 }
 
+.title-container {
+  position: absolute;
+  top: 25%;
+  left: 41.5%;
+
+  .application-title {
+    font-size: 32px;
+  }
+}
+
+.sub-title-container {
+  position: absolute;
+  top: 28.5%;
+  left: 41.5%;
+
+  .sub-title {
+    font-size: 18px;
+  }
+}
+
 .login-container {
   height: 100%;
 }
